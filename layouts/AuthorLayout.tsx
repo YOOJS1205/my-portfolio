@@ -9,42 +9,186 @@ interface Props {
 }
 
 export default function AuthorLayout({ children, content }: Props) {
-  const { name, avatar, occupation, company, email, twitter, linkedin, github } = content
+  const { avatar, email, twitter, linkedin, github } = content
 
   return (
-    <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            About
+    <div className="mx-auto max-w-[840px]">
+      <div className="flex items-center gap-10 space-y-2 pt-6 md:space-y-5">
+        {avatar && (
+          <Image
+            src={avatar}
+            alt="avatar"
+            width={192}
+            height={192}
+            className="h-48 w-48 rounded-full"
+          />
+        )}
+        <div>
+          <h1 className="whitespace-pre text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+            안녕하세요. <br />
+            프론트엔드 개발자 유준상입니다.
           </h1>
-        </div>
-        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
-          <div className="flex flex-col items-center space-x-2 pt-8">
-            {avatar && (
-              <Image
-                src={avatar}
-                alt="avatar"
-                width={192}
-                height={192}
-                className="h-48 w-48 rounded-full"
-              />
-            )}
-            <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">{name}</h3>
-            <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
-            <div className="text-gray-500 dark:text-gray-400">{company}</div>
-            <div className="flex space-x-3 pt-6">
-              <SocialIcon kind="mail" href={`mailto:${email}`} />
-              <SocialIcon kind="github" href={github} />
-              <SocialIcon kind="linkedin" href={linkedin} />
-              <SocialIcon kind="twitter" href={twitter} />
-            </div>
-          </div>
-          <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
-            {children}
+          <div className="flex space-x-3 pt-6">
+            <SocialIcon kind="mail" href={`mailto:${email}`} />
+            <SocialIcon kind="github" href={github} />
+            <SocialIcon kind="linkedin" href={linkedin} />
+            <SocialIcon kind="twitter" href={twitter} />
           </div>
         </div>
       </div>
-    </>
+      <div className="flex items-center gap-10 space-y-2 pt-6 md:space-y-5">
+        <ul className="prose max-w-none pb-8 pt-8 text-[18px] dark:prose-invert xl:col-span-2">
+          {children}
+        </ul>
+      </div>
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+        Work Experience
+      </h2>
+      <div className="flex gap-10 pb-10">
+        <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+          <p className="text-[28px] font-bold">중고나라</p>
+          <p className="text-[20px]">Frontend Engineer</p>
+          <p className="text-[20px]">2023.03 ~</p>
+        </div>
+        <div className="flex w-[70%] flex-col gap-10">
+          <div className="flex flex-col gap-4">
+            <p className="rounded-lg bg-teal-500 px-4 py-4 text-[18px] font-semibold">
+              MAU 160만의 중고나라 웹서비스를 개발, 유지보수합니다.
+            </p>
+            <ul className="flex list-disc flex-col gap-4 pl-6">
+              <li>채팅 서비스를 구축하여 중고나라 앱서비스 대비 매출 10% 달성에 기여하였습니다.</li>
+              <li>
+                Suspense와 Lazy Loading을 이용하여 스켈레톤 UI를 제공하고, Suspense를 사용하면서
+                발생한 Network Waterfall을 해결하여 로딩 속도를 감축하였습니다.
+              </li>
+              <li>
+                Elasticsearch에서 받아오는 상품리스트 데이터가 실시간성을 보장받지 못해 임의로
+                delay를 주고 요청했던 문제를 낙관적 업데이트를 통해 사용자가 기다리지 않도록
+                개선하였습니다.
+              </li>
+              <li>
+                AWS Amplify가 정적 IP 주소를 제공하지 않는 이슈를 확인하고, 사내망 IP 주소에서만
+                사용되는 테스트 환경을 Docker 환경으로 마이그레이션 하기 위해 Dockerfile를
+                작성하였습니다.
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col gap-4">
+            <p className="rounded-lg bg-teal-500 px-4 py-4 text-[18px] font-semibold">
+              700만 가입자의 중고나라 앱 내의 웹뷰를 개발, 유지보수합니다.
+            </p>
+            <ul className="flex list-disc flex-col gap-4 pl-6">
+              <li>
+                React Testing Library를 이용하여 중고나라의 핵심 기능인 배송 관련 UI 테스트 코드를
+                작성하고, 이를 기반으로 받는 분, 보내는 분 배송지 추가의 로직을 분리하였습니다.
+              </li>
+              <li>
+                팀원이 개발한 배송 기능 관련 로직을 테스트 코드 작성, 리팩토링 등으로 체화하고, 이를
+                통해 성공적으로 세븐일레븐 편의점 택배 서비스를 개발하였습니다.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* 프로젝트 */}
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+        Project
+      </h2>
+      <div className="flex gap-10 pb-10">
+        <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+          <p className="text-[28px] font-bold">또잇또잇</p>
+          <p className="text-[20px]">2023.11 ~ 2024.02</p>
+        </div>
+        <div className="flex w-[70%] flex-col gap-10">
+          <div className="flex flex-col gap-4">
+            <p className="rounded-lg bg-teal-500 px-4 py-4 text-[18px] font-semibold">
+              맛집을 알아보기 위한 새로운 기준을 제공합니다. <br />두 번 이상 간 내 맛집을 공유하는
+              서비스
+            </p>
+            <ul className="flex list-disc flex-col gap-4 pl-6">
+              <li>팀 리드로서 회의를 주도적으로 진행하고, 파트 별 일정관리를 담당하였습니다.</li>
+              <li>로그인, 약관, 검색, 리뷰 작성 페이지 및 기능을 담당하여 개발하였습니다.</li>
+              <li>
+                Github Actions의 workflow를 통해 CI 단계에서 Lint, 빌드 테스트, 프리뷰 기능을
+                추가하여 배포 시 에러가 발생할 수 있는 가능성을 낮췄습니다.
+              </li>
+              <li>
+                첫 로그인 여부에 따른 리다이렉트 로직을 Next.js의 middleware를 활용하여 서버
+                사이드에서 수행하도록 하였고, 이를 통해 사용자가 빈 화면을 보지 않도록 하였습니다.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* 활동 */}
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+        Activity
+      </h2>
+      <div className="flex flex-col gap-[60px] pb-10">
+        <div className="flex gap-10">
+          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+            <p className="text-[28px] font-bold">디프만 14기</p>
+            <p className="text-[20px]">2023.11 ~ 2024.02</p>
+          </div>
+          <div className="flex w-[70%] flex-col gap-10">
+            <div className="flex flex-col gap-4">
+              <ul className="flex list-disc flex-col gap-4 pl-6">
+                <li>
+                  디자이너와 개발자가 만나 서비스 기획부터 런칭까지 하나의 프로덕트를 완성하며
+                  성장하는 IT 커뮤니티인 디프만에 프론트엔드 개발자로 참여하였습니다.
+                </li>
+                <li>프로젝트 팀 리드를 담당하였습니다.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-10">
+          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+            <p className="text-[28px] font-bold">SOPT 31기</p>
+            <p className="text-[20px]">2022.09 ~ 2023.01</p>
+          </div>
+          <div className="flex w-[70%] flex-col gap-10">
+            <div className="flex flex-col gap-4">
+              <ul className="flex list-disc flex-col gap-4 pl-6">
+                <li>대학생 연합 IT 벤쳐창업 동아리인 SOPT에 프론트엔드 개발자로 참여하였습니다.</li>
+                <li>기획자, 디자이너, 백엔드 개발자와 협업하여 서비스 배포를 경험하였습니다.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-10">
+          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+            <p className="text-[28px] font-bold">멋쟁이사자처럼 프론트엔드 스쿨 2기</p>
+            <p className="text-[20px]">2022.03 ~ 2023.08</p>
+          </div>
+          <div className="flex w-[70%] flex-col gap-10">
+            <div className="flex flex-col gap-4">
+              <ul className="flex list-disc flex-col gap-4 pl-6">
+                <li>멋쟁이사자처럼에서 주관하는 프론트엔드 스쿨 2기에 참여하였습니다.</li>
+                <li>
+                  프론트엔드 개발자 4명이 팀을 이뤄 React 기반 오픈마켓 서비스를 개발하였습니다.
+                </li>
+                <li>
+                  팀장 역할을 수행하고, Git, Github 사용이 처음이라 어려움을 겪는 팀원들을 위해
+                  프로젝트 이전 시뮬레이션을 기획하고 주도하였습니다.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 학력 */}
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+        Education
+      </h2>
+      <div>
+        <p className="text-[20px]">경희대학교</p>
+        <p className="text-[20px]">2017.03 ~ 2023.08</p>
+        <p>산업경영공학과 졸업</p>
+      </div>
+    </div>
   )
 }
