@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
 import SocialIcon from '@/components/social-icons'
 import Image from '@/components/Image'
+import { ABOUT_DATA } from '@/data/aboutData'
 
 interface Props {
   children: ReactNode
@@ -24,9 +25,9 @@ export default function AuthorLayout({ children, content }: Props) {
           />
         )}
         <div>
-          <h1 className="whitespace-pre text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
-            안녕하세요. <br />
-            프론트엔드 개발자 유준상입니다.
+          <h1 className="whitespace-pre-line text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+            <p>안녕하세요.</p>
+            <p>프론트엔드 개발자 유준상입니다.</p>
           </h1>
           <div className="flex space-x-3 pt-6">
             <SocialIcon kind="mail" href={`mailto:${email}`} />
@@ -41,16 +42,16 @@ export default function AuthorLayout({ children, content }: Props) {
           {children}
         </ul>
       </div>
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
         Work Experience
       </h2>
-      <div className="flex gap-10 pb-10">
-        <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
+        <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
           <p className="text-[28px] font-bold">중고나라</p>
           <p className="text-[20px]">Frontend Engineer</p>
           <p className="text-[20px]">2023.03 ~</p>
         </div>
-        <div className="flex w-[70%] flex-col gap-10">
+        <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
           <div className="flex flex-col gap-4">
             <p className="rounded-lg bg-teal-500 px-4 py-4 text-[18px] font-semibold">
               MAU 160만의 중고나라 웹서비스를 개발, 유지보수합니다.
@@ -92,15 +93,15 @@ export default function AuthorLayout({ children, content }: Props) {
       </div>
 
       {/* 프로젝트 */}
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
         Project
       </h2>
-      <div className="flex gap-10 pb-10">
-        <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
+        <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
           <p className="text-[28px] font-bold">또잇또잇</p>
           <p className="text-[20px]">2023.11 ~ 2024.02</p>
         </div>
-        <div className="flex w-[70%] flex-col gap-10">
+        <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
           <div className="flex flex-col gap-4">
             <p className="rounded-lg bg-teal-500 px-4 py-4 text-[18px] font-semibold">
               맛집을 알아보기 위한 새로운 기준을 제공합니다. <br />두 번 이상 간 내 맛집을 공유하는
@@ -123,16 +124,16 @@ export default function AuthorLayout({ children, content }: Props) {
       </div>
 
       {/* 활동 */}
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
         Activity
       </h2>
       <div className="flex flex-col gap-[60px] pb-10">
-        <div className="flex gap-10">
-          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+        <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
+          <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
             <p className="text-[28px] font-bold">디프만 14기</p>
             <p className="text-[20px]">2023.11 ~ 2024.02</p>
           </div>
-          <div className="flex w-[70%] flex-col gap-10">
+          <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
             <div className="flex flex-col gap-4">
               <ul className="flex list-disc flex-col gap-4 pl-6">
                 <li>
@@ -144,12 +145,12 @@ export default function AuthorLayout({ children, content }: Props) {
             </div>
           </div>
         </div>
-        <div className="flex gap-10">
-          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+        <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
+          <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
             <p className="text-[28px] font-bold">SOPT 31기</p>
             <p className="text-[20px]">2022.09 ~ 2023.01</p>
           </div>
-          <div className="flex w-[70%] flex-col gap-10">
+          <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
             <div className="flex flex-col gap-4">
               <ul className="flex list-disc flex-col gap-4 pl-6">
                 <li>대학생 연합 IT 벤쳐창업 동아리인 SOPT에 프론트엔드 개발자로 참여하였습니다.</li>
@@ -158,12 +159,12 @@ export default function AuthorLayout({ children, content }: Props) {
             </div>
           </div>
         </div>
-        <div className="flex gap-10">
-          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-white">
+        <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
+          <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
             <p className="text-[28px] font-bold">멋쟁이사자처럼 프론트엔드 스쿨 2기</p>
             <p className="text-[20px]">2022.03 ~ 2023.08</p>
           </div>
-          <div className="flex w-[70%] flex-col gap-10">
+          <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
             <div className="flex flex-col gap-4">
               <ul className="flex list-disc flex-col gap-4 pl-6">
                 <li>멋쟁이사자처럼에서 주관하는 프론트엔드 스쿨 2기에 참여하였습니다.</li>
@@ -181,7 +182,7 @@ export default function AuthorLayout({ children, content }: Props) {
       </div>
 
       {/* 학력 */}
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-white pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
         Education
       </h2>
       <div>
@@ -189,6 +190,20 @@ export default function AuthorLayout({ children, content }: Props) {
         <p className="text-[20px]">2017.03 ~ 2023.08</p>
         <p>산업경영공학과 졸업</p>
       </div>
+
+      {/* {ABOUT_DATA.map((about) => (
+        <div className="pb-10">
+          <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+            {about.title}
+          </h2>
+          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-black dark:border-white">
+            {about.company.map((item, index) => (
+              <p className={index === 0 ? 'text-[28px] font-bold' : 'text-[20px]'}>{item}</p>
+            ))}
+          </div>
+          <div></div>
+        </div>
+      ))} */}
     </div>
   )
 }
