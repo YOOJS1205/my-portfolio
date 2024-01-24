@@ -72,6 +72,10 @@ export default function AuthorLayout({ children, content }: Props) {
                 사용되는 테스트 환경을 Docker 환경으로 마이그레이션 하기 위해 Dockerfile를
                 작성하였습니다.
               </li>
+              <li>
+                서버에서 내려오는 정보들의 특성을 이해하고, Tanstack Query의 staleTime과 cacheTime을
+                적절하게 활용하여 네트워크 요청 수를 줄였습니다.
+              </li>
             </ul>
           </div>
           <div className="flex flex-col gap-4">
@@ -190,20 +194,6 @@ export default function AuthorLayout({ children, content }: Props) {
         <p className="text-[20px]">2017.03 ~ 2023.08</p>
         <p>산업경영공학과 졸업</p>
       </div>
-
-      {/* {ABOUT_DATA.map((about) => (
-        <div className="pb-10">
-          <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
-            {about.title}
-          </h2>
-          <div className="flex w-[30%] flex-col gap-2 border-r-[2px] border-black dark:border-white">
-            {about.company.map((item, index) => (
-              <p className={index === 0 ? 'text-[28px] font-bold' : 'text-[20px]'}>{item}</p>
-            ))}
-          </div>
-          <div></div>
-        </div>
-      ))} */}
     </div>
   )
 }
