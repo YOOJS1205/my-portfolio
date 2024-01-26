@@ -14,6 +14,7 @@ const siteMetadata = {
   email: 'junsang8921@gmail.com',
   github: 'https://github.com/YOOJS1205',
   twitter: '',
+  blog: 'https://jundev.vercel.app',
   facebook: '',
   youtube: '',
   linkedin: 'https://www.linkedin.com/in/junsang-yoo-365228246/',

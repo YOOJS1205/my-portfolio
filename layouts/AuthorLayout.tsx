@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function AuthorLayout({ children, content }: Props) {
-  const { avatar, email, twitter, linkedin, github } = content
+  const { avatar, email, linkedin, github, blog } = content
 
   return (
     <div className="mx-auto max-w-[840px]">
@@ -29,11 +29,13 @@ export default function AuthorLayout({ children, content }: Props) {
             <p>안녕하세요.</p>
             <p>프론트엔드 개발자 유준상입니다.</p>
           </h1>
-          <div className="flex space-x-3 pt-6">
+          <div className="flex items-center space-x-4 pt-6">
             <SocialIcon kind="mail" href={`mailto:${email}`} />
             <SocialIcon kind="github" href={github} />
             <SocialIcon kind="linkedin" href={linkedin} />
-            <SocialIcon kind="twitter" href={twitter} />
+            <a className="text-[18px]" href={blog} target="_blank">
+              Blog
+            </a>
           </div>
         </div>
       </div>
