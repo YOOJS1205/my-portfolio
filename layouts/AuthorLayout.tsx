@@ -85,7 +85,8 @@ export default function AuthorLayout({ children, content }: Props) {
             <ul className="flex list-disc flex-col gap-4 pl-6">
               <li>
                 React Testing Library를 이용하여 중고나라의 핵심 기능인 배송 관련 UI 테스트 코드를
-                작성하고, 이를 기반으로 받는 분, 보내는 분 배송지 추가의 로직을 분리하였습니다.
+                작성하고, 이를 기반으로 받는 분, 보내는 분 배송지 추가의 로직을 QA팀의 리소스 없이
+                안전하게 분리하였습니다.
               </li>
               <li>
                 팀원이 개발한 배송 기능 관련 로직을 테스트 코드 작성, 리팩토링 등으로 체화하고, 이를
