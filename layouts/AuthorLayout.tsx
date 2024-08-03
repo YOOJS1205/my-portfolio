@@ -47,11 +47,41 @@ export default function AuthorLayout({ children, content }: Props) {
       <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
         Work Experience
       </h2>
+
+      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
+        <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
+          <p className="text-[28px] font-bold">클랩(CLAP)</p>
+          <p className="text-[20px]">Frontend Engineer</p>
+          <p className="text-[20px]">2024.03 ~</p>
+        </div>
+        <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
+          <div className="flex flex-col gap-4">
+            <p className="rounded-lg bg-teal-500 px-4 py-4 text-[18px] font-semibold">
+              최고의 조직을 만드는 성장관리 솔루션 클랩을 개발, 유지보수합니다.
+            </p>
+            <ul className="flex list-disc flex-col gap-4 pl-6">
+              <li>
+                Sentry 모니터링을 통해 VOC가 들어오기 이전에 버그를 발견하고, 해결하기 위해
+                노력합니다.
+              </li>
+              <li className="ml-4">
+                정상 에러와 Sentry로 수집해야하는 에러를 구분하여 무분별하게 에러가 수집되는 현상을
+                방지하였습니다. 이를 통해, Sentry에 수집되는 에러에 대해 경각심을 가지고 대응합니다.
+              </li>
+              <li>
+                목표 관리 도메인에서 클라이언트에서 선언한 타입과, dto의 타입의 싱크가 맞지 않아
+                버그가 발생하는 현상을 피쳐 개발과 병렬적으로 진행하여 해결하였습니다.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
         <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
           <p className="text-[28px] font-bold">중고나라</p>
           <p className="text-[20px]">Frontend Engineer</p>
-          <p className="text-[20px]">2023.03 ~</p>
+          <p className="text-[20px]">2023.03 ~ 2024.03</p>
         </div>
         <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
           <div className="flex flex-col gap-4">
