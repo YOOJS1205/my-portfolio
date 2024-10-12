@@ -1,0 +1,402 @@
+---
+title: 'Context는 어떻게 마법같이 값을 다른 컴포넌트에 전달할 수 있을까요?'
+date: '2024-10-12'
+lastmod: '2023-10-12'
+tags: ['react', 'context']
+draft: false
+summary: '여러분들은 특정 값을 컴포넌트 간에 공유하기 위해서 어떠한 방법을 사용하시나요? 일반적으로 props가 떠오릅니다. props를 통해서 간단하게 특정 값을 컴포넌트에 전달할 수 있습니다.'
+images: ['/static/images/twitter-card.png']
+---
+
+여러분들은 특정 값을 컴포넌트 간에 공유하기 위해서 어떠한 방법을 사용하시나요? 일반적으로 props가 떠오릅니다. props를 통해서 간단하게 특정 값을 컴포넌트에 전달할 수 있습니다.
+
+특정 값을 전달하려고 하는 하위 컴포넌트의 계층이 너무 깊으면 어떨까요? 우리가 흔하게 말하는 props drilling이라는 문제가 발생합니다.
+
+```jsx
+const App = () => {
+  const user = { id: 1, name: 'YOO' }
+
+  return <ParentComponent user={user} />
+}
+
+const ParentComponent = ({ user }) => {
+  return <ChildCompoennt user={user} />
+}
+
+const ChildComponent = ({ user }) => {
+  return <GrandChildCompoennt user={user} />
+}
+
+const GrandChildComponent = ({ user }) => {
+  return <div>{user.name}</div>
+}
+```
+
+많이들 보셨던 예시죠?
+
+이러한 상황에서 여러분들은 어떠한 방법을 채택하시나요? Props drilling을 해결하기 위해 React에서는 Context라는 개념을 제공합니다.
+
+이 글은 Context API가 어떻게 props 주입 없이 컴포넌트 간에 데이터를 공유할 수 있는지 알아보는 글입니다. Context API는 어떻게 마법같이 컴포넌트 간에 데이터를 공유할 수 있도록 도와줄까요?
+
+## createContext
+
+Context를 생성하는 createContext를 먼저 살펴볼까요?
+
+react 패키지를 다운받고, 아래의 경로 파일에서 구현체를 확인할 수 있습니다.
+
+`packages/react/src/ReactContext.js`
+
+내부 코드는 복잡하니, 핵심 코드만 살펴봅시다.
+
+```jsx
+// packages/react/src/ReactContext.js
+export function createContext<T>(defaultValue: T): ReactContext<T> {
+  const context: ReactContext<T> = {
+    $$typeof: REACT_CONTEXT_TYPE,
+    _currentValue: defaultValue,
+    _currentValue2: defaultValue,
+    _threadCount: 0,
+    Provider: (null: any),
+    Consumer: (null: any),
+  };
+
+  ...
+
+  return context;
+}
+```
+
+해당 코드를 통해서 아래의 사실을 확인할 수 있습니다.
+
+- createContext 함수는 T 타입의 기본값을 인자로 받습니다.
+- 인자로 받은 기본값을 기반으로 context라는 객체를 생성하고 반환합니다.
+  - `context._currentValue` , `context._currentValue2`에 defaultValue를 저장합니다.
+- context 객체에는 Provider, Consumer 필드가 존재하며, 초깃값을 `null` 입니다.
+
+이번에는 타입을 살펴볼까요?
+
+```jsx
+// node_modules/@types/react/index.d.ts
+
+function createContext<T>(
+  defaultValue: T,
+): Context<T>;
+
+interface Context<T> {
+  Provider: Provider<T>;
+  Consumer: Consumer<T>;
+  displayName?: string | undefined;
+}
+
+type Provider<T> = ProviderExoticComponent<ProviderProps<T>>;
+type Consumer<T> = ExoticComponent<ConsumerProps<T>>;
+
+interface ProviderExoticComponent<P> extends ExoticComponent<P> {
+  propTypes?: WeakValidationMap<P> | undefined;
+}
+
+interface ProviderProps<T> {
+  value: T;
+  children?: ReactNode | undefined;
+}
+
+interface ConsumerProps<T> {
+  children: (value: T) => ReactNode;
+}
+```
+
+해당 타입을 통해서 대략 아래와 같이 유추할 수 있을 것 같습니다.
+
+- `Context.Provider`의 타입은 `Provider<T>` 이다.
+- `Provider<T>` 타입은 컴포넌트 타입이며, 제네릭으로 타입을 받는다.
+- `ProviderProps<T>` 타입은 value props로 값을 받고, children을 통해 자식 컴포넌트를 렌더링할 수 있다.
+
+- `Context.Consumer` 의 타입은 `Consumer<T>` 이다.
+- `Consumer<T>` 타입은 컴포넌트 타입이며, 제네릭으로 타입을 받는다.
+- `ConsumerProps<T>` 타입은 무조건 children을 통해 자식 컴포넌트를 렌더링하고, 자식 컴포넌트는 인자로 value를 받는다.
+
+정리를 하자면 아래와 같을 것 같네요.
+
+- `Context.Provider`는 T 타입의 값을 value를 props로 전달받고, 자식 컴포넌트를 렌더링할 수 있는 컴포넌트
+- `Context.Consumer`는 T 타입의 값을 자식 컴포넌트 인자로 전달받고, 자식 컴포넌트를 렌더링할 수 있는 컴포넌트
+
+따라서, 아래와 같이 사용되는게 아닐까요?
+
+```tsx
+import { createContext, ReactNode } from 'react'
+
+interface User {
+  id: number
+  name: string
+}
+
+interface ComponentWithChildren {
+  children: ReactNode
+}
+
+const User = ({ id, name }: User) => {
+  return (
+    <div>
+      <p>{id}</p>
+      <p>{name}</p>
+    </div>
+  )
+}
+
+const UsersContext = createContext<User[] | null>(null)
+
+const UsersProvider = ({ children }: ComponentWithChildren) => {
+  const user: User[] = []
+
+  return <UsersContext.Provider value={user}>{children}</UsersContext.Provider>
+}
+
+const UserList = () => {
+  return (
+    <UsersContext.Consumer>
+      {(value) => value?.map((user) => <User key={user.id} id={user.id} name={user.name} />)}
+    </UsersContext.Consumer>
+  )
+}
+```
+
+여기까지 살펴봤는데, 궁금한 점이 생겼습니다.
+
+`createContext` 를 통해서 Context를 생성했고, Provider 컴포넌트에 값을 props로 주입했죠. 근데 어떻게 Provider의 value가 Provider로 감싸진 하위 컴포넌트에 전파가 될 수 있을까요?
+
+## Provider의 value가 하위 컴포넌트에 전파되는 과정
+
+### 1. Context.Provider의 컴포넌트가 렌더링되는 과정
+
+자세한 동작 방식은 전부 확인할 수는 없지만, `ReactFiberBeginWork.js` 파일의 `beginWork` 함수에 주목할 필요가 있을 것 같습니다.
+
+리액트의 모든 컴포넌트는 렌더링 과정에서 Fiber 트리 노드로서 작업을 처리하므로, `beginWork` 함수가 호출될 것으로 예상되고, `Context.Provider` 도 마찬가지입니다.
+
+`beginWork` 함수의 일부를 살펴볼까요?
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+function beginWork(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+): Fiber | null {
+  ...
+
+  switch (workInProgress.tag) {
+    ...
+    // 해당 함수 실행
+    case ContextProvider:
+      return updateContextProvider(current, workInProgress, renderLanes);
+    case ContextConsumer:
+      return updateContextConsumer(current, workInProgress, renderLanes);
+    ...
+  }
+  ...
+}
+```
+
+`ContextProvider` 케이스에, `updateContextProvider` 함수를 호출하는 것을 볼 수 있습니다.
+
+`updateContextProvider` 함수를 확인해볼까요?
+
+여기서도, 로직의 일부만 확인해보겠습니다.
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+function updateContextProvider(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+) {
+  let context: ReactContext<any>;
+  if (enableRenderableContext) {
+    context = workInProgress.type;
+  } else {
+    context = workInProgress.type._context;
+  }
+  const newProps = workInProgress.pendingProps;
+  const oldProps = workInProgress.memoizedProps;
+
+  const newValue = newProps.value;
+
+  ...
+
+  pushProvider(workInProgress, context, newValue);
+}
+```
+
+뭔가 context 객체를 생성하고, 새로운 값과 함께 `pushProvider` 라는 함수를 호출하죠? `pushProvider` 함수를 살펴보겠습니다.
+
+```tsx
+// packages/react-reconciler/src/ReactFiberNewContext.js
+export function pushProvider<T>(
+  providerFiber: Fiber,
+  context: ReactContext<T>,
+  nextValue: T
+): void {
+  if (isPrimaryRenderer) {
+    push(valueCursor, context._currentValue, providerFiber)
+
+    context._currentValue = nextValue
+    if (__DEV__) {
+      push(rendererCursorDEV, context._currentRenderer, providerFiber)
+
+      if (
+        context._currentRenderer !== undefined &&
+        context._currentRenderer !== null &&
+        context._currentRenderer !== rendererSigil
+      ) {
+        console.error(
+          'Detected multiple renderers concurrently rendering the ' +
+            'same context provider. This is currently unsupported.'
+        )
+      }
+      context._currentRenderer = rendererSigil
+    }
+  } else {
+    push(valueCursor, context._currentValue2, providerFiber)
+
+    context._currentValue2 = nextValue
+    if (__DEV__) {
+      push(renderer2CursorDEV, context._currentRenderer2, providerFiber)
+
+      if (
+        context._currentRenderer2 !== undefined &&
+        context._currentRenderer2 !== null &&
+        context._currentRenderer2 !== rendererSigil
+      ) {
+        console.error(
+          'Detected multiple renderers concurrently rendering the ' +
+            'same context provider. This is currently unsupported.'
+        )
+      }
+      context._currentRenderer2 = rendererSigil
+    }
+  }
+}
+```
+
+첫 렌더링인 경우, `context._currentValue` 에 인자로 전달받은 `nextValue` 를 할당하는 것을 확인할 수 있습니다.
+
+이 값을 Consumer 컴포넌트에서 참조하게 될 것 같습니다.
+
+### 2. Context.Consumer의 컴포넌트가 렌더링되는 과정
+
+`Context.Consumer` 컴포넌트 역시 렌더링되면 `beginWork` 함수가 실행이 되겠죠?
+
+아래는 아까 확인한 `beginWork` 함수의 일부입니다. 이번엔 `updateContextConsumer` 함수가 실행될 것으로 예상됩니다.
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+function beginWork(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+): Fiber | null {
+  ...
+
+  switch (workInProgress.tag) {
+    ...
+    case ContextProvider:
+      return updateContextProvider(current, workInProgress, renderLanes);
+    // 해당 함수 실행
+    case ContextConsumer:
+      return updateContextConsumer(current, workInProgress, renderLanes);
+    ...
+    case Throw: {
+      // This represents a Component that threw in the reconciliation phase.
+      // So we'll rethrow here. This might be a Thenable.
+      throw workInProgress.pendingProps;
+    }
+  }
+
+  throw new Error(
+    `Unknown unit of work tag (${workInProgress.tag}). This error is likely caused by a bug in ` +
+      'React. Please file an issue.',
+  );
+}
+```
+
+`updateContextConsumer` 함수를 살펴보겠습니다.
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+function updateContextConsumer(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+) {
+  let context: ReactContext<any>;
+  if (enableRenderableContext) {
+    const consumerType: ReactConsumerType<any> = workInProgress.type;
+    context = consumerType._context;
+  } else {
+    context = workInProgress.type;
+    if (__DEV__) {
+      if ((context: any)._context !== undefined) {
+        context = (context: any)._context;
+      }
+    }
+  }
+  const newProps = workInProgress.pendingProps;
+  const render = newProps.children;
+
+  ...
+
+  prepareToReadContext(workInProgress, renderLanes);
+  const newValue = readContext(context);
+  if (enableSchedulingProfiler) {
+    markComponentRenderStarted(workInProgress);
+  }
+  let newChildren;
+  if (__DEV__) {
+    newChildren = callComponentInDEV(render, newValue, undefined);
+  } else {
+    newChildren = render(newValue);
+  }
+  ...
+}
+```
+
+`readContext` 함수를 실행해서 `newValue` 값을 받고, 해당 값을 기반으로 `render` 함수를 실행하는 것을 볼 수 있습니다.
+
+`readContext` 함수에서, `readContextForConsumer` 함수가 실행됩니다. 살펴볼까요?
+
+```tsx
+// packages/react-reconciler/src/ReactFiberNewContext.js
+function readContextForConsumer<C>(
+  consumer: Fiber | null,
+  context: ReactContext<C>,
+): C {
+  const value = isPrimaryRenderer
+    ? context._currentValue
+    : context._currentValue2;
+
+  ...
+
+  return value;
+}
+```
+
+여기있었군요! 여기서 첫 렌더링일 때에는 `context._currentValue` , `context._currentValue2` 값을 value에 할당하고 반환합니다.
+
+엄청 길었습니다. 정리를 한 번 해볼까요? `Context.Provider` 먼저 정리하겠습니다.
+
+- `Context.Provider` 컴포넌트가 렌더링됩니다.
+- `beginWork` 함수가 호출되고, 내부에서 `updateContextProvider` 함수가 호출됩니다.
+- `updateContextProvider` 함수에서 context 객체를 생성하고, 새로운 값과 함께 `pushProvider` 함수를 호출합니다.
+- `pushProvider` 함수에서 첫 렌더링이면, `context._currentValue`, 이후 업데이트될 때의 렌더링이면 `context._currentValue2` 에 nextValue를 할당합니다.
+
+`Context.Consumer` 도 정리해볼까요?
+
+- `Context.Consumer` 컴포넌트가 렌더링됩니다.
+- `beginWork` 함수가 호출되고, 내부에서 `updateContextConsumer` 함수가 호출됩니다.
+- `updateContextConsumer` 함수에서 `readContext` 함수를 실행하고, 이를 기반으로 `newValue` 값을 받아 `render` 함수를 실행합니다.
+- `readContextForConsumer` 함수에서 첫 렌더링 여부에 따라 각각 `context._currentValue` , `context._currentValue2` 값을 value에 할당하고 반환하여 하위 컴포넌트에서 `Context.Provider` 의 값을 참조할 수 있습니다.
+
+역시 리액트 패키지 내부를 살펴보는 것은 쉽지 않은 것 같아요. 전체를 살펴볼 수 없으니, 대략적으로 살펴보면서 `Context.Provider` 의 value 값을 `Context.Consumer` 가 어떻게 접근할 수 있는지를 살펴보았습니다.
+
+당연하게 사용하는 것들에 대해서, 어떻게 동작하는지에 대해서 조금씩 살펴보려고 노력을 하고 있어요. 이러한 경험들이 많으신 분들에게 조언도 얻어보고 싶네요! (패키지를 살펴보는 꿀팁이라던가..)
+
+아티클에서 틀린 내용이나 부족한 점이 있다면 언제든 편하게 말씀주세요!
