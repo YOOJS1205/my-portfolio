@@ -61,6 +61,11 @@ export default function AuthorLayout({ children, content }: Props) {
             </p>
             <ul className="flex list-disc flex-col gap-4 pl-6">
               <li>
+                Atomic design과 Storybook을 이용하여 컴포넌트 단위로 개발하였습니다. 디자이너와 팀
+                개발자와 함께 소통하여 컴포넌트 단위를 정의하고 문서화하였습니다.
+              </li>
+              <li>Jest를 활용하여 유틸 함수와 커스텀 훅에 대한 테스트 코드를 작성하였습니다.</li>
+              <li>
                 Sentry 모니터링을 통해 VOC가 들어오기 이전에 버그를 발견하고, 해결하기 위해
                 노력합니다.
               </li>
