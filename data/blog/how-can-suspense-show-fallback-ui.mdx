@@ -1,0 +1,395 @@
+---
+title: 'Suspense는 어떻게 자식 요소가 로드되기 전까지 대체 UI를 제공할까요?'
+date: '2024-11-03'
+lastmod: '2023-11-03'
+tags: ['react', 'suspense']
+draft: false
+summary: 'React의 Suspense는 16.6 버전에서 실험적 기능으로 탄생하였습니다. 초기에는 React.lazy 와 함께 코드 스플리팅을 위해서 사용이 되었죠.'
+images: ['/static/images/twitter-card.png']
+---
+
+React의 Suspense는 16.6 버전에서 실험적 기능으로 탄생하였습니다. 초기에는 `React.lazy` 와 함께 코드 스플리팅을 위해서 사용이 되었죠.
+
+이후, Suspense는 18 버전에서 정식으로 지원되기 시작했고, 개발자들은 이를 활용하여 비동기 데이터 로딩을 보다 효율적으로 처리할 수 있게 되었습니다.
+
+Suspense 탄생 이전에는 비동기 데이터 로딩을 명령적으로 처리한데에 반해, 탄생 이후에는 선언적으로 처리가 가능해졌습니다.
+
+```tsx
+// Suspense 탄생 이전
+
+function Component() {
+  if (!data) return <Loading />
+
+  return <div>Component</div>
+}
+```
+
+```tsx
+// Suspense 탄생 이후
+
+function Component() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <div>Component</div>
+    </Suspense>
+  )
+}
+```
+
+많이 보셨던 예시일겁니다. 사용이 정말 쉽고, 명확하죠.
+
+그런데, 문득 궁금점이 생깁니다. Suspense는 어떻게 자식 컴포넌트를 렌더링하기 위해 필요한 코드와 데이터가 로딩중임과 끝났음을 감지할 수 있을까요?
+
+이번 글에서는, Suspense의 개념을 살펴보는 것이 아닌, 어떻게 자식 컴포넌트를 렌더링하기 위해 필요한 코드와 데이터가 로딩중임을 감지해서 fallback을 제공하고, 끝났을 때 비로소 자식 컴포넌트를 제공할 수 있는지에 대해서 살펴보도록 하겠습니다.
+
+## Suspense의 정체
+
+Suspense가 어떻게 생겼는지부터 확인해볼까요?
+
+```tsx
+// node_modules/.store/@types/react@18.2.38/node_modules/@types/react/ts5.0/index.d.ts
+
+interface SuspenseProps {
+  children?: ReactNode | undefined
+
+  /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
+  fallback?: ReactNode
+}
+
+const Suspense: ExoticComponent<SuspenseProps>
+```
+
+Suspense는 컴포넌트의 형태이고, props로 optional하게 children과 fallback을 받을 수 있습니다. 또한, 주석으로 fallback의 역할이 명시되어있네요!
+
+> _Suspense의 자식 요소가 중단될 때 보여주는 react tree_
+
+아하, fallback은 자식 요소가 비동기 작업으로 인해 중단이 되면 대체로 보여주는 요소겠군요.
+
+이제, 렌더링 과정에서 발생하는 일들을 자세히 살펴볼까요?
+
+## Suspense 컴포넌트 렌더링 과정에서 호출하는 `beginWork`
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+
+function beginWork(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+): Fiber | null {
+  ...
+    case SuspenseComponent:
+      return updateSuspenseComponent(current, workInProgress, renderLanes);
+  ...
+}
+```
+
+`SuspenseComponent` 경우에는 `updateSuspenseComponent` 함수를 호출합니다. 해당 함수를 살펴볼까요? `updateSuspenseComponent` 는 꽤 복잡하니, 하나씩 차근차근 살펴보도록 하겠습니다.
+
+### `updateSuspenseComponent` 함수의 호출
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+
+function updateSuspenseComponent(
+  current: null | Fiber,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+) {
+  ...
+}
+```
+
+우리는 인자로 전달되는 `current` 와 `workInProgress` 에 주목할 필요가 있습니다.
+
+> current
+
+이전 렌더링 사이클에서 사용된 Suspense의 Fiber 노드입니다.
+
+> workInProgress
+
+현재 렌더링 사이클에서 업데이트 중인 Suspense의 Fiber 노드입니다.
+
+```tsx
+let showFallback = false
+const didSuspend = (workInProgress.flags & DidCapture) !== NoFlags
+if (didSuspend || shouldRemainOnFallback(current, workInProgress, renderLanes)) {
+  // Something in this boundary's subtree already suspended. Switch to
+  // rendering the fallback children.
+  showFallback = true
+  workInProgress.flags &= ~DidCapture
+}
+```
+
+다음 코드 블록입니다. `showFallback` 값을 `false` 로 초기화합니다. 해당 값은 **fallback UI를 렌더링할지 여부에 대한 값**입니다.
+
+`didSuspend` 는 `workInProgress` 의 플래그가 `DidCapture` 인지 확인합니다. `DidCapture` 는 `Suspense` **컴포넌트가 비동기 작업으로 인해 중단된 상태를 의미**합니다.
+
+해당 코드를 읽어보면, `didSuspend` 가 `true` 이면, `showFallback` 값을 `true` 로 변환하고, 플래그 값을 초기화하는 것을 볼 수 있습니다.
+
+흠, 대충 **Suspense 컴포넌트가 비동기 작업으로 인해 중단되면 폴백을 제공한다** 정도로 파악이 되겠군요.
+
+그렇다면, 플래그 값이 `DidCapture` 로 바뀌는 과정을 확인할 필요가 있습니다. 현재는, 플래그 값이 `DidCapture` 가 아니므로, 자식 컴포넌트를 렌더링할 것이고, 자연스럽게 `beginwork` 를 호출할 것입니다.
+
+## 자식 요소 렌더링 과정에서 호출하는 `beginWork`
+
+해당 글에서는 자식 요소에서 `useQuery` 라는 비동기 작업 훅을 호출하는 Functional Component라고 가정하겠습니다.
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+
+function beginWork(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+): Fiber | null {
+  ...
+    case FunctionComponent: {
+      const Component = workInProgress.type;
+      const unresolvedProps = workInProgress.pendingProps;
+      const resolvedProps =
+        disableDefaultPropsExceptForClasses ||
+        workInProgress.elementType === Component
+          ? unresolvedProps
+          : resolveDefaultPropsOnNonClassComponent(Component, unresolvedProps);
+      return updateFunctionComponent(
+        current,
+        workInProgress,
+        Component,
+        resolvedProps,
+        renderLanes,
+      );
+    }
+  ...
+}
+```
+
+`updateFunctionComponent` 를 호출할 것입니다.
+
+## `updateFunctionComponent` 함수의 호출
+
+해당 함수는 상당히 복잡하므로, 우리가 봐야하는 핵심 로직만 살펴보면 좋을 것 같습니다.
+
+```tsx
+// packages/react-reconciler/src/ReactFiberBeginWork.js
+
+function updateFunctionComponent(
+  current: null | Fiber,
+  workInProgress: Fiber,
+  Component: any,
+  nextProps: any,
+  renderLanes: Lanes,
+) {
+  ...
+
+  nextChildren = renderWithHooks(
+    current,
+    workInProgress,
+    Component,
+    nextProps,
+    context,
+    renderLanes,
+  );
+
+  ...
+}
+```
+
+`updateFunctionComponent` 함수를 호출하면 내부에서 `renderWithHooks` 라는 함수를 호출합니다.
+
+해당 함수를 실행하면 컴포넌트의 훅을 실행하게 됩니다. `useQuery` 와 같은 훅들을 말이죠.
+
+그래서 결국은 `Promise` 를 어떻게 감지하냐 이거입니다. 우리는 `renderRootConcurrent` 함수에 주목할 필요가 있습니다.
+
+### `renderRootConcurrent`
+
+해당 함수는 `Suspense` 를 포함한 모든 React 컴포넌트의 병렬 렌더링에 사용이 됩니다. 해당 함수의 마지막 로직을 살펴볼까요?
+
+```tsx
+// packages/react-reconciler/src/ReactFiberWorkLoop.js
+
+function renderRootConcurrent(root: FiberRoot, lanes: Lanes) {
+  ...
+  outer: do {
+    try {
+      if (
+        workInProgressSuspendedReason !== NotSuspended &&
+        workInProgress !== null
+      ) {
+        // The work loop is suspended. During a synchronous render, we don't
+        // yield to the main thread. Immediately unwind the stack. This will
+        // trigger either a fallback or an error boundary.
+        // TODO: For discrete and "default" updates (anything that's not
+        // flushSync), we want to wait for the microtasks the flush before
+        // unwinding. Will probably implement this using renderRootConcurrent,
+        // or merge renderRootSync and renderRootConcurrent into the same
+        // function and fork the behavior some other way.
+        const unitOfWork = workInProgress;
+        const thrownValue = workInProgressThrownValue;
+        switch (workInProgressSuspendedReason) {
+          case SuspendedOnHydration: {
+            // Selective hydration. An update flowed into a dehydrated tree.
+            // Interrupt the current render so the work loop can switch to the
+            // hydration lane.
+            resetWorkInProgressStack();
+            workInProgressRootExitStatus = RootDidNotComplete;
+            break outer;
+          }
+          case SuspendedOnImmediate:
+          case SuspendedOnData: {
+            if (!didSuspendInShell && getSuspenseHandler() === null) {
+              didSuspendInShell = true;
+            }
+            // Intentional fallthrough
+          }
+          default: {
+            // Unwind then continue with the normal work loop.
+            const reason = workInProgressSuspendedReason;
+            workInProgressSuspendedReason = NotSuspended;
+            workInProgressThrownValue = null;
+            throwAndUnwindWorkLoop(root, unitOfWork, thrownValue, reason);
+            break;
+          }
+        }
+      }
+      workLoopSync();
+      break;
+    } catch (thrownValue) {
+      handleThrow(root, thrownValue);
+    }
+  }
+  ...
+}
+```
+
+`SuspendedOnData` 케이스는 비동기 작업이 끝나지 않은 상태입니다. 해당 코드를 보면, `SuspendedOnData` 케이스에 `throwAndUnwindWorkLoop` 함수를 호출하는 것을 확인할 수 있습니다.
+
+`renderRootConcurrent` 함수는 Promise 가 throw되면, 예외를 감지하고 `throwAndUnwindWorkLoop` 를 호출하게 되는 것이죠.
+
+### `throwAndUnwindWorkLoop`
+
+```tsx
+// packages/react-reconciler/src/ReactFiberWorkLoop.js
+
+function throwAndUnwindWorkLoop(
+  root: FiberRoot,
+  unitOfWork: Fiber,
+  thrownValue: mixed,
+  suspendedReason: SuspendedReason,
+) {
+  ...
+
+  try {
+  // Find and mark the nearest Suspense or error boundary that can handle
+  // this "exception".
+    const didFatal = throwException(
+      root,
+      returnFiber,
+      unitOfWork,
+      thrownValue,
+      workInProgressRootRenderLanes,
+    );
+    if (didFatal) {
+      panicOnRootError(root, thrownValue);
+      return;
+    }
+  }
+
+  ...
+}
+```
+
+`throwException` 함수를 호출하는 것을 확인할 수 있습니다.
+
+### `throwException`
+
+```tsx
+// packages/react-reconciler/src/ReactFiberThrow.js
+
+function throwException(
+  root: FiberRoot,
+  returnFiber: Fiber | null,
+  sourceFiber: Fiber,
+  value: mixed,
+  rootRenderLanes: Lanes,
+): boolean {
+  ...
+
+  markSuspenseBoundaryShouldCapture(
+    suspenseBoundary,
+    returnFiber,
+    sourceFiber,
+    root,
+    rootRenderLanes,
+  );
+
+  ...
+
+}
+```
+
+`markSuspenseBoundaryShouldCapture` 함수가 핵심입니다! 해당 함수를 살펴봅시다.
+
+### `markSuspenseBoundaryShouldCapture`
+
+```tsx
+function markSuspenseBoundaryShouldCapture(
+  suspenseBoundary: Fiber,
+  returnFiber: Fiber | null,
+  sourceFiber: Fiber,
+  root: FiberRoot,
+  rootRenderLanes: Lanes,
+): Fiber | null {
+  ...
+
+  if (suspenseBoundary === returnFiber) {
+    // Special case where we suspended while reconciling the children of
+    // a Suspense boundary's inner Offscreen wrapper fiber. This happens
+    // when a React.lazy component is a direct child of a
+    // Suspense boundary.
+    //
+    // Suspense boundaries are implemented as multiple fibers, but they
+    // are a single conceptual unit. The legacy mode behavior where we
+    // pretend the suspended fiber committed as `null` won't work,
+    // because in this case the "suspended" fiber is the inner
+    // Offscreen wrapper.
+    //
+    // Because the contents of the boundary haven't started rendering
+    // yet (i.e. nothing in the tree has partially rendered) we can
+    // switch to the regular, concurrent mode behavior: mark the
+    // boundary with ShouldCapture and enter the unwind phase.
+    suspenseBoundary.flags |= ShouldCapture;
+  }
+
+  ...
+
+}
+```
+
+플래그 값을 `ShouldCapture` 로 변환합니다! 그런데, 앞서 계속 나왔던 `DidCapture` 와 어떠한 차이일까요?
+
+> ShouldCapture
+
+Suspense가 중단 상태에 있으며, 폴백 UI를 렌더링해야 함을 나타내는 플래그입니다. Promise가 감지될 때 설정됩니다.
+
+> DidCapture
+
+Suspense가 이미 중단 상태로 전환되어 폴백 UI를 렌더링했음을 나타내는 플래그입니다. 폴백 UI가 렌더링된 후 설정됩니다.
+
+**`ShouldCapture` 플래그 상태이면, Suspense 컴포넌트의 리렌더링이 스케쥴링 됩니다! 따라서, 폴백 UI를 제공할 수 있게 되는거죠.**
+
+너무 멀리왔습니다. 정리가 필요할 것 같습니다.
+
+## 요약
+
+1. 자식 요소 렌더링 중 비동기 작업으로 인하여 `Promise` 가 `throw` 되면, React는 이를 감지하여 `throwException` 함수를 호출합니다.
+2. `throwException` 함수는 `markSuspenseBoundaryShouldCapture` 함수를 통해 `ShouldCapture` 플래그를 설정합니다. 해당 플래그는 `Suspense`가 중단 상태임을 나타내고, fallback UI 렌더링을 스케쥴링합니다.
+3. 리렌더링과 함께 `updateSuspenseComponent` 함수가 호출되고, `didSuspend` 플래그임을 확인하고 fallback UI를 제공합니다.
+
+사실 조금 자세히 살펴보려고 노력했지만, 아직까지 명확하게 파악이 되었다기 보다는, 흐름을 파악한 정도입니다. 우선은 여기에서 만족을 해야할 것 같습니다.
+
+리액트 패키지 내부를 살펴보면서 동작 원리를 살펴보니, Reconciler에 대한 개념을 먼저 확립하는 것이 필요할 것 같다는 생각이 들어요.
+
+다음에는 이러한 내용을 들고 찾아오도록 하겠습니다.
+
+틀린 내용이나 개선해야할 내용이 있다면 언제나 환영입니다!
