@@ -61,6 +61,22 @@ export default function AuthorLayout({ children, content }: Props) {
             </p>
             <ul className="flex list-disc flex-col gap-4 pl-6">
               <li>
+                성능 개선 TF에 소속되어 최대 규모 고객사 시나리오 기반으로 전반적인 프로덕션 성능을
+                개선하였습니다.
+              </li>
+              <li className="ml-4">
+                리스트 컴포넌트에 UI 가상화를 적용하여, 필요한 데이터만 렌더링하도록 하였습니다.
+              </li>
+              <li>테이블 컴포넌트 사용성 개선</li>
+              <li className="ml-4">
+                기존에 기능별로 분리되어있던 Provider를 하나로 합치고, 전달받은 props를 기반으로
+                접근할 수 있는 테이블 상태만 반환하도록 수정하였습니다.
+              </li>
+              <li className="ml-4">
+                이를 통해, 하나의 커스텀 훅으로 테이블 상태를 관리할 수 있도록 하였고, BoilerPlate를
+                줄여 개발 생산성을 향상하였습니다.
+              </li>
+              <li>
                 Atomic design과 Storybook을 이용하여 컴포넌트 단위로 개발하였습니다. 디자이너와 팀
                 개발자와 함께 소통하여 컴포넌트 단위를 정의하고 문서화하였습니다.
               </li>
@@ -172,8 +188,8 @@ export default function AuthorLayout({ children, content }: Props) {
       <div className="flex flex-col gap-[60px] pb-10">
         <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
           <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[30%] min-[768px]:border-r-[2px]">
-            <p className="text-[28px] font-bold">디프만 14기</p>
-            <p className="text-[20px]">2023.11 ~ 2024.02</p>
+            <p className="text-[28px] font-bold">디프만 14, 15기</p>
+            <p className="text-[20px]">2023.11 ~ 2024.09</p>
           </div>
           <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
             <div className="flex flex-col gap-4">
@@ -183,6 +199,7 @@ export default function AuthorLayout({ children, content }: Props) {
                   성장하는 IT 커뮤니티인 디프만에 프론트엔드 개발자로 참여하였습니다.
                 </li>
                 <li>프로젝트 팀 리드를 담당하였습니다.</li>
+                <li>15기에는 운영진으로 참여하여, 70명 규모의 행사를 전반적으로 관리하였습니다.</li>
               </ul>
             </div>
           </div>
