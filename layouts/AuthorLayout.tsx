@@ -65,7 +65,7 @@ export default function AuthorLayout({ children, content }: Props) {
           </div>
 
           {/* 섹션 1 */}
-          <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h3 className="mb-3 text-base font-semibold text-gray-800">
               📦 대용량 데이터 테이블 UX 개선
             </h3>
@@ -81,63 +81,78 @@ export default function AuthorLayout({ children, content }: Props) {
               </li>
               <li>무한 스크롤로 초기 로딩 성능 개선</li>
               <li>
-                <strong>Optimistic UI</strong>로 사용자 액션에 대한 즉각적 피드백 제공
+                <strong>Optimistic Update</strong>를 통하여 별도의 로딩 없이 사용자 액션에 대한
+                즉각적 피드백 제공
               </li>
             </ul>
           </section>
 
-          <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h3 className="mb-3 text-base font-semibold text-gray-800">📝 리뷰 도메인 고도화</h3>
             <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
               <li>
-                <span className="font-semibold">피평가자별 리뷰 작성자 매칭·승인 기능</span> 개발
-                <span className="text-sm text-gray-500">
-                  {' '}
-                  — 평가 준비 과정에서 발생할 수 있는 오류를 최소화하고, 피평가자의 평가자 관리를
-                  시스템에서 할 수 있도록 함
-                </span>
+                <span className="font-semibold">피평가자별 리뷰 작성자 매칭·승인 기능</span>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>
+                    평가 준비 과정에서 발생할 수 있는 오류를 최소화하고, 피평가자의 평가자 관리를
+                    시스템에서 할 수 있도록 함
+                  </li>
+                </ul>
               </li>
               <li>
-                <span className="font-semibold">리뷰 예약 기능</span> 도입
-                <span className="text-sm text-gray-500">
-                  {' '}
-                  — 사용자가 원하는 시간에 리뷰를 시작할 수 있도록 하여, 기존에 즉시 시작해야만 했던
-                  불편함을 해소
-                </span>
+                <span className="font-semibold">리뷰 예약 기능</span>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>
+                    사용자가 원하는 시간에 리뷰를 시작할 수 있도록 하여, 기존에 즉시 시작해야만 했던
+                    불편함을 해소
+                  </li>
+                </ul>
               </li>
               <li>
-                <span className="font-semibold">‘리뷰 작성 관리자’ 권한 분리 기능</span> 추가
-                <span className="text-sm text-gray-500">
-                  {' '}
-                  — 관리자 외에도 리뷰 작성자 및 피평가자를 관리할 수 있도록 하여, 관리자가 아닌
-                  사람도 더 효율적으로 프로세스를 진행 가능
-                </span>
+                <span className="font-semibold">'리뷰 작성 관리자' 권한 분리 기능</span>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>
+                    관리자 외에도 리뷰 작성자 및 피평가자를 관리할 수 있도록 하여, 관리자가 아닌
+                    사람도 더 효율적으로 프로세스를 진행 가능
+                  </li>
+                </ul>
               </li>
               <li>
-                <span className="font-semibold">목표 연계형 리뷰 기능</span> 개발
-                <span className="text-sm text-gray-500">
-                  {' '}
-                  — 리뷰와 목표를 자동으로 연결, 목표 달성 경로를 명확하게 제시하여 사용자 피드백을
-                  더 직관적으로 제공
-                </span>
+                <span className="font-semibold">목표 연계형 리뷰 기능</span>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>
+                    리뷰와 목표를 자동으로 연결, 목표 달성 경로를 명확하게 제시하여 사용자 피드백을
+                    더 직관적으로 제공
+                  </li>
+                </ul>
               </li>
               <li>
-                <span className="font-semibold">즉시 목표 추가 기능</span> 구현
-                <span className="text-sm text-gray-500">
-                  {' '}
-                  — 사용자가 리뷰 작성 중 목표를 추가할 수 있도록 하여, 수립한 목표가 없더라도
-                  평가할 수 있는 목표를 추가할 수 있는 기능을 제공
-                </span>
+                <span className="font-semibold">즉시 목표 추가 기능</span>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>
+                    사용자가 리뷰 작성 중 목표를 추가할 수 있도록 하여, 수립한 목표가 없더라도
+                    평가할 수 있는 목표를 추가할 수 있는 기능을 제공
+                  </li>
+                </ul>
               </li>
             </ul>
           </section>
 
           {/* 섹션 2 */}
-          <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h3 className="mb-3 text-base font-semibold text-gray-800">
-              🧪 개발 환경 및 품질 관리
+              🧪 메이커들의 생산성을 높이기 위해 노력합니다.
             </h3>
             <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
+              <li>
+                <strong>CI 테스트 속도를 1200초에서 90초로 대폭 개선</strong>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>
+                    ts-auto-mock의 런타임 타입 체크로 인한 성능 이슈를 해결하기 위해 createMock 유틸
+                    함수를 개발하여 2600개의 테스트 케이스 실행 시간 단축
+                  </li>
+                </ul>
+              </li>
               <li>Atomic Design, Storybook 기반의 컴포넌트 단위 개발 및 문서화</li>
               <li>Jest 기반 테스트 코드 작성으로 유틸/훅의 신뢰성 확보</li>
               <li>Sentry 수집 에러 필터링 → 의미 있는 에러 대응 체계 구축</li>
@@ -146,11 +161,11 @@ export default function AuthorLayout({ children, content }: Props) {
           </section>
 
           {/* 섹션 3 */}
-          <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
             <h3 className="mb-3 text-base font-semibold text-gray-800">
               🛠 개발 중 발생한 문제 해결
             </h3>
-            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="list-disc space-y-2 pl-6 text-gray-700">
               <li>DTO ↔ 클라이언트 타입 불일치 이슈를 병렬적으로 해결하여 일정 지연 없이 배포</li>
             </ul>
           </section>
@@ -165,11 +180,11 @@ export default function AuthorLayout({ children, content }: Props) {
         </div>
         <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
           {/* 웹서비스 */}
-          <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <section className="text-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <h3 className="mb-4 text-lg font-bold text-teal-700">
               🌐 MAU 160만의 중고나라 웹서비스 개발 및 유지보수
             </h3>
-            <ul className="text-md list-disc space-y-3 pl-6 text-gray-800">
+            <ul className="list-disc space-y-3 pl-6 text-gray-800">
               <li>
                 <span className="font-medium text-gray-900">채팅 서비스 신규 구축</span>으로 앱 대비
                 웹 서비스에서 <span className="font-semibold text-black">매출 10% 달성</span>에 기여
@@ -197,16 +212,16 @@ export default function AuthorLayout({ children, content }: Props) {
           </section>
 
           {/* 앱 내 웹뷰 */}
-          <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <section className="text-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <h3 className="mb-4 text-lg font-bold text-teal-700">
               📱 700만 가입자의 중고나라 앱 내 웹뷰 개발 및 유지보수
             </h3>
-            <ul className="text-md list-disc space-y-3 pl-6 text-gray-800">
+            <ul className="list-disc space-y-3 pl-6 text-gray-800">
               <li>
                 <span className="font-medium">React Testing Library</span>로 배송 관련 UI 테스트를
                 구축하여 QA 리소스 없이{' '}
                 <span className="font-medium text-black">
-                  ‘받는 분/보내는 분’ 로직을 안정적으로 분리
+                  '받는 분/보내는 분' 로직을 안정적으로 분리
                 </span>
               </li>
               <li>
