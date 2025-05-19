@@ -54,7 +54,7 @@ export default function AuthorLayout({ children, content }: Props) {
           <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Frontend Engineer</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">2024.03 ~ 재직 중</p>
         </div>
-        <div className="flex flex-col gap-8 min-[768px]:w-[70%]">
+        <div className="flex flex-col gap-6 min-[768px]:w-[70%]">
           <div className="rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
             <h2 className="mb-2 text-lg font-bold text-teal-800">
               💡 최고의 조직을 만드는 성장관리 솔루션 클랩을 개발, 유지보수합니다.
@@ -64,10 +64,32 @@ export default function AuthorLayout({ children, content }: Props) {
             </p>
           </div>
 
+          {/* Tech Stack 박스 추가 */}
+          <div className="mb-2 flex flex-wrap items-center gap-1">
+            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
+              Next.js
+            </span>
+            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
+              React
+            </span>
+            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
+              TypeScript
+            </span>
+            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
+              Tanstack Query
+            </span>
+            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
+              Storybook
+            </span>
+            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
+              Jest
+            </span>
+          </div>
+
           {/* 섹션 1 */}
           <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-3 text-base font-semibold text-gray-800">
-              📦 대용량 데이터 테이블 UX 개선
+            <h3 className="mb-3 text-xl font-bold text-gray-800">
+              📦 대용량 데이터 테이블 컴포넌트를 설계하였습니다.
             </h3>
             <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
               <li>
@@ -88,7 +110,9 @@ export default function AuthorLayout({ children, content }: Props) {
           </section>
 
           <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-3 text-base font-semibold text-gray-800">📝 리뷰 도메인 고도화</h3>
+            <h3 className="mb-3 text-xl font-bold text-gray-800">
+              📝 가장 복잡한 도메인인 리뷰 도메인을 고도화하여 고객에게 편의를 제공하였습니다.
+            </h3>
             <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
               <li>
                 <span className="font-semibold">피평가자별 리뷰 작성자 매칭·승인 기능</span>
@@ -140,7 +164,7 @@ export default function AuthorLayout({ children, content }: Props) {
 
           {/* 섹션 2 */}
           <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-3 text-base font-semibold text-gray-800">
+            <h3 className="mb-3 text-xl font-bold text-gray-800">
               🧪 메이커들의 생산성을 높이기 위해 노력합니다.
             </h3>
             <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
@@ -151,6 +175,14 @@ export default function AuthorLayout({ children, content }: Props) {
                     ts-auto-mock의 런타임 타입 체크로 인한 성능 이슈를 해결하기 위해 createMock 유틸
                     함수를 개발하여 2600개의 테스트 케이스 실행 시간 단축
                   </li>
+                </ul>
+              </li>
+              <li>
+                <strong>
+                  Production 배포 시에 자동으로 Git Tag를 생성하고 push 하도록 워크플로우를 개선
+                </strong>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>이를 통해 수동으로 Git Tag를 생성하고 push하는 불편함을 해결하였습니다.</li>
                 </ul>
               </li>
               <li>Atomic Design, Storybook 기반의 컴포넌트 단위 개발 및 문서화</li>
