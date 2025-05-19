@@ -93,11 +93,20 @@ export default function AuthorLayout({ children, content }: Props) {
             </h3>
             <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
               <li>
-                성능개선 TF 소속으로 <strong>고도화된 테이블 시스템을 제품 관점</strong>에서 재설계
-                및 구현
+                사내 디자인 시스템에서 사용하는{' '}
+                <strong>Material UI 기반의 Material React Table 채택 및 PoC 공유</strong>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                  <li>
+                    Headless 모드가 아닌, MRT의 기본 기능을 활용하면서{' '}
+                    <strong>사내 디자인 시스템에 맞춘 스타일 커스터마이징</strong> 적용
+                  </li>
+                </ul>
               </li>
               <li>Row selection, tree 등 다양한 시나리오에 대응 가능한 테이블 컴포넌트 개발</li>
-              <li>고객 UX 분석을 통해 전체 선택 제거 → 최대 선택 정책으로 인터랙션 간소화</li>
+              <li>
+                고객 UX 분석을 통해 <strong>전체 선택 제거 → 최대 Page Size 선택 정책</strong>으로
+                인터랙션 간소화
+              </li>
               <li>
                 가상 스크롤 + O(n) 트리 유틸 적용으로 <strong>대용량 렌더링 최적화</strong>
               </li>
