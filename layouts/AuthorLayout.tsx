@@ -219,24 +219,26 @@ export default function AuthorLayout({ children, content }: Props) {
           <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Frontend Engineer</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">2023.03 ~ 2024.03</p>
         </div>
-        <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
+        <div className="flex flex-col gap-6 min-[768px]:w-[70%]">
+          <div className="rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
+            <h2 className="mb-2 text-lg font-bold text-teal-800">
+              💡 MAU 160만의 중고나라 웹서비스, 앱서비스 내의 웹뷰를 개발 및 유지보수합니다.
+            </h2>
+            <p className="text-sm text-gray-700">
+              중고거래 헤비 유저로서, 사용자 관점에서 다양한 의견을 제시하고, 개발 뿐 아니라 기획
+              측면에서도 기여하였습니다.
+            </p>
+          </div>
+
           {/* 웹서비스 */}
           <section className="text-md p-5">
-            <h3 className="mb-4 text-lg font-bold text-teal-700">
-              🌐 MAU 160만의 중고나라 웹서비스 개발 및 유지보수
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+              🛒 매출이 없던 웹 서비스에서 앱 서비스 대비 10% 매출을 낼 수 있도록 기여하였습니다.
             </h3>
             <ul className="list-disc space-y-3 pl-6 text-gray-800 dark:text-gray-100">
               <li>
-                채팅 서비스 신규 구축으로 앱 대비 웹 서비스에서 <strong>매출 10% 달성</strong>에
-                기여
-              </li>
-              <li>
-                <strong>Suspense & Lazy Loading</strong>을 활용해 스켈레톤 UI 제공,{' '}
-                <strong>Network Waterfall 문제를 해결</strong>하여 로딩 속도 개선
-              </li>
-              <li>
-                Elasticsearch의 비실시간성 이슈를 <strong>낙관적 업데이트</strong>로 해결하여 사용자
-                대기 시간 최소화
+                <strong>Web Socket 기반</strong> 채팅 서비스 신규 구축으로 앱 대비 웹 서비스에서{' '}
+                <strong>매출 10% 달성</strong>에 기여
               </li>
               <li>
                 AWS Amplify의 고정 IP 미지원 문제를 파악하고,{' '}
@@ -250,10 +252,26 @@ export default function AuthorLayout({ children, content }: Props) {
             </ul>
           </section>
 
+          <section className="text-md p-5">
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+              🛠 한 명의 중고거리 유저의 관점에서, 제품 사용성 개선에 기여하였습니다.
+            </h3>
+            <ul className="list-disc space-y-3 pl-6">
+              <li>
+                <strong>Suspense & Lazy Loading</strong>을 활용해 스켈레톤 UI 제공,{' '}
+                <strong>Network Waterfall 문제를 해결</strong>하여 로딩 속도 개선
+              </li>
+              <li>
+                Elasticsearch의 비실시간성 이슈를 <strong>낙관적 업데이트</strong>로 해결하여 사용자
+                대기 시간 최소화
+              </li>
+            </ul>
+          </section>
+
           {/* 앱 내 웹뷰 */}
           <section className="text-md p-5">
-            <h3 className="mb-4 text-lg font-bold text-gray-800 dark:text-gray-100">
-              📱 700만 가입자의 중고나라 앱 내 웹뷰 개발 및 유지보수
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+              🔧 부족한 리소스에서도 코드 품질 개선을 멈추지 않았습니다.
             </h3>
             <ul className="list-disc space-y-3 pl-6">
               <li>
@@ -264,6 +282,18 @@ export default function AuthorLayout({ children, content }: Props) {
                 팀원이 개발한 로직을 <span className="font-medium">테스트 코드 기반으로 체화</span>
                 하고, <strong>세븐일레븐 편의점 택배 서비스</strong> 기능을 안정적으로 런칭
               </li>
+            </ul>
+          </section>
+
+          <section className="text-md p-5">
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+              📝 새로운 팀원이 빠르게 적응할 수 있도록 온보딩 가이드를 문서화하였습니다.
+            </h3>
+            <ul className="list-disc space-y-3 pl-6">
+              <li>
+                처음 들어오는 팀원이 생소해할 수 있는 AWS 환경 설정 및 사용법을 문서화하였습니다.
+              </li>
+              <li>웹, 앱 서비스의 히스토리 및 개발 환경을 문서화하였습니다.</li>
             </ul>
           </section>
         </div>
