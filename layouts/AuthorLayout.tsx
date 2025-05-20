@@ -87,15 +87,15 @@ export default function AuthorLayout({ children, content }: Props) {
           </div>
 
           {/* 섹션 1 */}
-          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-3 text-xl font-bold text-gray-800">
+          <section className="text-md p-5">
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
               📦 대용량 데이터 테이블 컴포넌트를 설계하였습니다.
             </h3>
-            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
               <li>
                 사내 디자인 시스템에서 사용하는{' '}
                 <strong>Material UI 기반의 Material React Table 채택 및 PoC 공유</strong>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     Headless 모드가 아닌, MRT의 기본 기능을 활용하면서{' '}
                     <strong>사내 디자인 시스템에 맞춘 스타일 커스터마이징</strong> 적용
@@ -118,14 +118,14 @@ export default function AuthorLayout({ children, content }: Props) {
             </ul>
           </section>
 
-          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-3 text-xl font-bold text-gray-800">
+          <section className="text-md p-5">
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
               📝 가장 복잡한 도메인인 리뷰 도메인을 고도화하여 고객에게 편의를 제공하였습니다.
             </h3>
-            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
               <li>
                 <span className="font-semibold">피평가자별 리뷰 작성자 매칭·승인 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     평가 준비 과정에서 발생할 수 있는 오류를 최소화하고, 피평가자의 평가자 관리를
                     시스템에서 할 수 있도록 함
@@ -134,7 +134,7 @@ export default function AuthorLayout({ children, content }: Props) {
               </li>
               <li>
                 <span className="font-semibold">리뷰 예약 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     사용자가 원하는 시간에 리뷰를 시작할 수 있도록 하여, 기존에 즉시 시작해야만 했던
                     불편함을 해소
@@ -143,7 +143,7 @@ export default function AuthorLayout({ children, content }: Props) {
               </li>
               <li>
                 <span className="font-semibold">'리뷰 작성 관리자' 권한 분리 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     관리자 외에도 리뷰 작성자 및 피평가자를 관리할 수 있도록 하여, 관리자가 아닌
                     사람도 더 효율적으로 프로세스를 진행 가능
@@ -152,7 +152,7 @@ export default function AuthorLayout({ children, content }: Props) {
               </li>
               <li>
                 <span className="font-semibold">목표 연계형 리뷰 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     리뷰와 목표를 자동으로 연결, 목표 달성 경로를 명확하게 제시하여 사용자 피드백을
                     더 직관적으로 제공
@@ -161,7 +161,7 @@ export default function AuthorLayout({ children, content }: Props) {
               </li>
               <li>
                 <span className="font-semibold">즉시 목표 추가 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     사용자가 리뷰 작성 중 목표를 추가할 수 있도록 하여, 수립한 목표가 없더라도
                     평가할 수 있는 목표를 추가할 수 있는 기능을 제공
@@ -172,14 +172,14 @@ export default function AuthorLayout({ children, content }: Props) {
           </section>
 
           {/* 섹션 2 */}
-          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-3 text-xl font-bold text-gray-800">
+          <section className="text-md p-5">
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
               🧪 메이커들의 생산성을 높이기 위해 노력합니다.
             </h3>
-            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
               <li>
                 <strong>CI 테스트 속도를 1200초에서 90초로 대폭 개선</strong>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     ts-auto-mock의 런타임 타입 체크로 인한 성능 이슈를 해결하기 위해 createMock 유틸
                     함수를 개발하여 2600개의 테스트 케이스 실행 시간 단축
@@ -190,7 +190,7 @@ export default function AuthorLayout({ children, content }: Props) {
                 <strong>
                   Production 배포 시에 자동으로 Git Tag를 생성하고 push 하도록 워크플로우를 개선
                 </strong>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-4 leading-relaxed">
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>이를 통해 수동으로 Git Tag를 생성하고 push하는 불편함을 해결하였습니다.</li>
                 </ul>
               </li>
@@ -202,11 +202,11 @@ export default function AuthorLayout({ children, content }: Props) {
           </section>
 
           {/* 섹션 3 */}
-          <section className="text-md rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-3 text-base font-semibold text-gray-800">
-              🛠 개발 중 발생한 문제 해결
+          <section className="text-md p-5">
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+              🛠 조직이 겪는 기술적인 문제를 피쳐 개발과 병렬적으로 해결합니다.
             </h3>
-            <ul className="list-disc space-y-2 pl-6 text-gray-700">
+            <ul className="list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
               <li>DTO ↔ 클라이언트 타입 불일치 이슈를 병렬적으로 해결하여 일정 지연 없이 배포</li>
             </ul>
           </section>
@@ -221,29 +221,27 @@ export default function AuthorLayout({ children, content }: Props) {
         </div>
         <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
           {/* 웹서비스 */}
-          <section className="text-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <section className="text-md p-5">
             <h3 className="mb-4 text-lg font-bold text-teal-700">
               🌐 MAU 160만의 중고나라 웹서비스 개발 및 유지보수
             </h3>
-            <ul className="list-disc space-y-3 pl-6 text-gray-800">
+            <ul className="list-disc space-y-3 pl-6 text-gray-800 dark:text-gray-100">
               <li>
-                <span className="font-medium text-gray-900">채팅 서비스 신규 구축</span>으로 앱 대비
-                웹 서비스에서 <span className="font-semibold text-black">매출 10% 달성</span>에 기여
+                채팅 서비스 신규 구축으로 앱 대비 웹 서비스에서 <strong>매출 10% 달성</strong>에
+                기여
               </li>
               <li>
-                <span className="font-medium">Suspense & Lazy Loading</span>을 활용해 스켈레톤 UI
-                제공, <span className="text-black">Network Waterfall 문제를 해결</span>하여 로딩
-                속도 개선
+                <strong>Suspense & Lazy Loading</strong>을 활용해 스켈레톤 UI 제공,{' '}
+                <strong>Network Waterfall 문제를 해결</strong>하여 로딩 속도 개선
               </li>
               <li>
-                Elasticsearch의 비실시간성 이슈를{' '}
-                <span className="font-medium text-black">낙관적 업데이트</span>로 해결하여 사용자
+                Elasticsearch의 비실시간성 이슈를 <strong>낙관적 업데이트</strong>로 해결하여 사용자
                 대기 시간 최소화
               </li>
               <li>
                 AWS Amplify의 고정 IP 미지원 문제를 파악하고,{' '}
-                <span className="font-medium">사내망 전용 테스트 환경</span>을{' '}
-                <span className="font-medium text-black">Docker 기반</span>으로 마이그레이션
+                <strong>사내망 전용 테스트 환경</strong>을 <strong>Docker 기반</strong>으로
+                마이그레이션
               </li>
               <li>
                 <span className="font-medium">Tanstack Query의 staleTime/cacheTime</span> 설정을
@@ -253,23 +251,18 @@ export default function AuthorLayout({ children, content }: Props) {
           </section>
 
           {/* 앱 내 웹뷰 */}
-          <section className="text-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-            <h3 className="mb-4 text-lg font-bold text-teal-700">
+          <section className="text-md p-5">
+            <h3 className="mb-4 text-lg font-bold text-gray-800 dark:text-gray-100">
               📱 700만 가입자의 중고나라 앱 내 웹뷰 개발 및 유지보수
             </h3>
-            <ul className="list-disc space-y-3 pl-6 text-gray-800">
+            <ul className="list-disc space-y-3 pl-6">
               <li>
                 <span className="font-medium">React Testing Library</span>로 배송 관련 UI 테스트를
-                구축하여 QA 리소스 없이{' '}
-                <span className="font-medium text-black">
-                  '받는 분/보내는 분' 로직을 안정적으로 분리
-                </span>
+                구축하여 QA 리소스 없이 <strong>'받는 분/보내는 분' 로직을 안정적으로 분리</strong>
               </li>
               <li>
                 팀원이 개발한 로직을 <span className="font-medium">테스트 코드 기반으로 체화</span>
-                하고,{' '}
-                <span className="font-semibold text-black">세븐일레븐 편의점 택배 서비스</span>{' '}
-                기능을 안정적으로 런칭
+                하고, <strong>세븐일레븐 편의점 택배 서비스</strong> 기능을 안정적으로 런칭
               </li>
             </ul>
           </section>
@@ -367,7 +360,7 @@ export default function AuthorLayout({ children, content }: Props) {
       </div>
 
       {/* 학력 */}
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-800 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
         Education
       </h2>
       <div>
