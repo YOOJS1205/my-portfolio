@@ -1,0 +1,300 @@
+---
+title: 'Jest 속도 개선기: 모든 Library에는 trade-off가 존재한다.'
+date: '2025-05-22'
+lastmod: '2025-05-22'
+tags: ['jest', 'ts-auto-mock']
+draft: false
+summary: '모든 Library에는 trade-off가 존재한다.'
+images: ['/static/images/twitter-card.png']
+---
+
+## 😓 Jest 속도가 너무 느려요.
+
+제 팀에는 큰 고민이 있었습니다. 바로 Jest를 기반으로 하는 테스트 속도가 너무 느리다는 거였어요.
+
+물론 CI에서는 변경된 테스트 케이스에 대해서만 실행을 하지만, 고작 **2600개 가량의 테스트 케이스를 돌리는데 무려 20분**이 걸리는건 말이 안된다고 생각했어요.
+
+테스트 실행 속도를 이렇게나 느리게 만든 원인이 무엇인지 궁금하였고, 원인을 찾아보기로 하였습니다.
+
+## 🔍 문제의 원인을 찾아서
+
+원인은 찾는건 그리 어렵지 않았습니다. 아무리 생각해도 아래 예시의 테스트를 실행할 때 오래 걸릴 이유가 없었거든요.
+
+다음은, 시작 값, 목표 값, 현재 값을 기반으로 진행율 (%)를 계산하는 유틸 함수와 테스트 케이스 입니다.
+
+일부 테스트 케이스는 생략되어있어요.
+
+```tsx
+export const getProgressValue = (
+  currentProgressValue: number | undefined = 0,
+  startProgressValue: number | undefined = 0,
+  endProgressValue: number | undefined = 100
+): number => {
+  if (endProgressValue === startProgressValue) {
+    return currentProgressValue >= endProgressValue ? 100 : 0
+  }
+
+  const progress =
+    ((currentProgressValue - startProgressValue) / (endProgressValue - startProgressValue)) * 100
+  return showNumberWithDecimal(progress, 2)
+}
+```
+
+```tsx
+describe("currentProgressValue, startProgressValue, endProgressValue를 바탕으로 현재 진행률을 반환한다", () => {
+  it("currentProgressValue가 50, startProgressValue가 0, endProgressValue가 100인 경우 50을 반환한다", () => {
+    // when
+    const currentProgressValue = 50;
+    const startProgressValue = 0;
+    const endProgressValue = 100;
+
+    // when
+    const result = getProgressValue(currentValue, startValue, endValue);
+
+    // then
+    expect(result).toStrictEqual(50);
+  });
+
+
+  it("시작값과 마지막값이 같은 경우, currentValue이 endValue보다 크거나 같으면 100을 반환한다.", () => {
+    // given
+    const startValue = 10;
+    const endValue = 10;
+    const currentValue = 10;
+
+    // when
+    const result = getProgressValue(currentValue, startValue, endValue);
+
+    // then
+    expect(result).toStrictEqual(100);
+    });
+
+    ...
+  });
+```
+
+8개의 테스트 케이스가 있었고, 테스트를 실행해서 결과를 보여주는데 **무려 3~4초**가 소요되었어요.
+
+아무리 생각해도, `ts-auto-mock` 을 사용함에 따라, 런타임에 타입 체크를 하고, 여기에 걸리는 시간이 많다 이외에 생길만한 병목이 떠오르지 않았어요.
+
+따라서, jest의 config 파일에서 컴파일 옵션을 제거하고, 다시 테스트를 실행해보았어요.
+
+여기서 `ts-patch/compiler` 는 `ts-auto-mock` 이 런타임에 타입 정보를 사용할 수 있게 도와주는 도구입니다.
+
+```tsx
+// jest.config.js
+
+module.exports = {
+  ...,
+  transform: {
+    "\\.(js|jsx)?$": "babel-jest",
+    "^.+\\.(ts|tsx)?$": [
+      "ts-jest",
+      {
+        // 해당 옵션 제거
+        compiler: "ts-patch/compiler",
+        tsconfig: {
+          jsx: "react-jsx",
+        },
+      },
+    ],
+    "^.+\\.svg$": "<rootDir>/config/jest/svgTransformer.js",
+  },
+  ...,
+};
+```
+
+아니나 다를까, 해당 옵션을 끄고 테스트를 수행했더니 **0.6 ~ 0.8초**가 소요되었습니다.
+
+## `ts-auto-mock` 의 trade-off
+
+`ts-patch/compiler`가 `ts-auto-mock`이 런타임에 타입 정보에 접근할 수 있게 도와주는 도구였고, 이것이 병목의 원인이었습니다.
+
+compiler 옵션이 활성화되면서, 모든 테스트 파일이 실행될때마다 런타임에 타입 체크를 수행했기 때문이죠!
+
+그렇다면, 저희 팀은 왜 `ts-auto-mock` 라이브러리를 사용하고 있었을까요? `ts-auto-mock` 은 아래의 강력한 편의를 제공하는 라이브러리입니다.
+
+[ts-auto-mock Documentation](https://typescript-tdd.github.io/ts-auto-mock/)
+
+> _The creation of mocks is done during TypeScript compilation and preserves all type information._
+
+공식문서에 작성되어있는 `ts-auto-mock` 의 강력함입니다. 어떠한 의미일까요?
+
+이는 곧, 컴파일 시점에 mock 객체를 생성하고 모든 타입 정보를 보존함을 의미합니다. 이러한 특성 때문에, 얻을 수 있는 장점이 많습니다.
+
+1. 타입 정보가 보존되어있기 때문에, 인터페이스 혹은 타입을 기반으로 mock 객체 생성이 가능합니다.
+
+   ```tsx
+   interface User {
+     id: number
+     name: string
+   }
+
+   const mockUser = createMock<User>() // 타입 정보를 기반으로 자동 생성
+   ```
+
+2. 보존된 타입 정보를 기반으로 IDE의 자동완성과 타입 체크 기능을 사용할 수 있습니다.
+3. 컴파일 시점의 타입 정보를 분석하여 각 필드에 적절하게 기본값을 넣어줍니다.
+
+이러한 장점들 때문에, `ts-auto-mock` 라이브러리를 채택했지만, 런타임에 타입 체크를 수행해야 한다는 큰 대가를 치러야 했습니다.
+
+## `ts-auto-mock` 을 무분별하게 사용하면서 느꼈던 아쉬움
+
+타입 정보에 따라 적절하게 필드에 기본값을 넣어주는 `ts-auto-mock` 의 장점을 무분별하게 사용하면서 느꼈던 아쉬움이 있습니다. 간단한 예시를 살펴볼까요?
+
+```tsx
+interface User {
+  id: number
+  isAdmin: boolean
+  orderNum: number
+}
+
+export const isAdminWithOrderHistory = (user: User): boolean => {
+  if (!user.isAdmin) return false
+
+  return user.orderNum !== 0
+}
+```
+
+해당 유틸함수는 관리자가 아니고, 주문 이력이 있는 고객인지를 판별하는 유틸함수입니다. 테스트 코드를 작성해볼까요?
+
+```tsx
+describe('test isAdminWithOrderHistory()', () => {
+  it('주문이력이 없는 관리자에 대해서는 false를 반환한다.', () => {
+    // given
+    const mockUser = createMock<User>({
+      orderNum: 0,
+    })
+
+    // when
+    const result = isRegularCustomer(mockUser)
+
+    // then
+    expect(result).toBe(false)
+  })
+})
+```
+
+조금은 극단적인 예시일 수 있으나,, 요런 케이스들이 있었습니다.
+
+해당 테스트 케이스는 통과할까요? 네 통과합니다. 근데 왜 통과했을까요?
+
+사실, mockUser를 콘솔에 찍어보면, 아래와 같은 값이 찍힙니다.
+
+```tsx
+console.log(mockUser)
+
+// { id: 0; isAdmin: false; orderNum: 0; }
+```
+
+따라서, 해당 테스트 케이스는 사실 주문이력이 없어서 `false` 를 반환하는 것이 아닌, 관리자가 아니기 때문에 `false` 를 반환하는 케이스입니다.
+
+엄밀히 따지면, **가짜로 테스트를 통과하는 케이스**였죠.
+
+이러한 케이스들이 발생하기 때문에, 오히려 `ts-auto-mock` 에서 제공하는 기본값을 넣어주는거에 의지하는게 아닌, **유틸함수에 참조하는 필드는 모두 명시하는게 더 신뢰도가 높은 테스트 코드**가 아닐까라는 생각을 했고, 모든 팀원이 동의를 했어요.
+
+더 나아가서, 사용되는 모든 필드를 명시한다면, Partial, DeepPartial를 지원하는 유틸함수를 만들고, `ts-auto-mock` 을 걷어내서 Jest 속도까지 개선할 수 있지 않을까라는 생각이 들었어요.
+
+## 🛠️ `ts-auto-mock` 을 걷어내기 위한 유틸함수 만들기
+
+`ts-auto-mock`을 걷어내고, 우리만의 mock 유틸리티를 만들기로 했습니다.
+
+이때 우리가 중요하게 생각한 점은
+
+1. 타입 안정성 유지
+2. 필요한 필드만 명시적으로 설정 가능
+3. 런타임 타입 체크 제거로 성능 개선
+
+이를 위해 다음과 같은 유틸리티 함수들을 개발했습니다:
+
+```tsx
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+export const createMock = <T>(overrides: Partial<T> = {}): T => {
+  const baseObject = {} as T;
+  return {
+    ...baseObject,
+    ...overrides,
+  } as T;
+};
+
+export const createDeepMock = <T>(overrides: DeepPartial<T> = {}): T => {
+  return overrides as T;
+};
+
+```
+
+특히 주목할 점은 `createMock`과 `createDeepMock`을 분리했다는 점입니다.
+
+- `createMock`: 일반적인 mock 객체 생성에 사용
+- `createDeepMock`: 중첩된 객체 구조를 가진 mock 객체 생성에 사용
+
+이렇게 분리함으로써:
+
+1. 필요한 경우에만 `DeepPartial`을 사용하도록 유도
+2. 타입 안정성과 성능의 균형을 맞춤
+
+또한 배열을 생성하는 유틸리티도 추가했습니다:
+
+```tsx
+export const createMockArray = <T>(items: Partial<T>[] = []): T[] => {
+  return items.map((item) => createMock<T>(item));
+};
+
+export const createDeepMockArray = <T>(items: DeepPartial<T>[] = []): T[] => {
+  return items.map((item) => createDeepMock<T>(item));
+};
+
+```
+
+그리고 특정 개수의 mock 객체를 생성하는 유틸리티도 만들었습니다:
+
+```tsx
+export const createMockList = <T>(
+  count: number,
+  overridesOrModifier?: Partial<T> | ((index: number) => Partial<T>)
+): T[] => {
+  return Array.from({ length: count }, (_, index) => {
+    const modifiedItem =
+      typeof overridesOrModifier === "function" ? overridesOrModifier(index) : overridesOrModifier || {};
+    return createMock<T>(modifiedItem);
+  });
+};
+
+export const createDeepMockList = <T>(
+  count: number,
+  overridesOrModifier?: DeepPartial<T> | ((index: number) => DeepPartial<T>)
+): T[] => {
+  return Array.from({ length: count }, (_, index) => {
+    const modifiedItem =
+      typeof overridesOrModifier === "function" ? overridesOrModifier(index) : overridesOrModifier || {};
+    return createDeepMock<T>(modifiedItem);
+  });
+};
+
+```
+
+이러한 유틸리티 함수들을 통해 아래의 장점들을 살릴 수 있도록 했어요!
+
+1. 필요한 필드만 명시적으로 설정 가능
+2. 런타임 타입 체크 제거로 성능 개선
+3. 타입 안정성 유지
+4. 다양한 mock 객체 생성 시나리오 지원
+
+## 적용하기
+
+유틸로 전부 마이그레이션을 하면서 어떠한 효과를 얻을 수 있었을까요?
+
+전체 테스트 케이스를 수행하는데 걸리는 시간이 **20분에서 무려 1분 초반 가량으로 개선**되었습니다.
+
+### 기존
+
+![jest-before.png](/static/images/jest-before.png)
+
+### 마이그레이션 후
+
+![jest-after.png](/static/images/jest-after.png)
+
+역시 편의를 제공하는 라이브러리에는 trade-off가 있음을 크게 체감할 수 있었던 경험입니다. 여러분들도 이러한 경험이 있으신가요?
