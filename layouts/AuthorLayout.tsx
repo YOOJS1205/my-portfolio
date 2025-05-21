@@ -178,7 +178,15 @@ export default function AuthorLayout({ children, content }: Props) {
             </h3>
             <ul className="text-md list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
               <li>
-                <strong>CI 테스트 속도를 1200초에서 90초로 대폭 개선</strong>
+                <strong>CI 테스트 속도를 1200초에서 90초로 대폭 개선</strong>{' '}
+                <a
+                  className="font-bold text-gray-900 underline dark:text-gray-200"
+                  href="https://junsangyoo.vercel.app/blog/jest-speed-improvement"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  (링크)
+                </a>
                 <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
                   <li>
                     ts-auto-mock의 런타임 타입 체크로 인한 성능 이슈를 해결하기 위해 createMock 유틸
