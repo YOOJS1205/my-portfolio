@@ -263,7 +263,7 @@ export default function AuthorLayout({ children, content }: Props) {
 
           <section className="text-md p-5">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              🛠 한 명의 중고거리 유저의 관점에서, 제품 사용성 개선에 기여하였습니다.
+              🛠 한 명의 중고거래 유저의 관점에서, 제품 사용성 개선에 기여하였습니다.
             </h3>
             <ul className="list-disc space-y-3 pl-6">
               <li>
