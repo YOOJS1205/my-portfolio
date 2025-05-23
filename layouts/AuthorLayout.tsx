@@ -49,7 +49,7 @@ export default function AuthorLayout({ children, content }: Props) {
         Work Experience
       </h2>
 
-      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
+      <div className="flex gap-10 pb-10 font-semibold max-[768px]:flex-col max-[768px]:gap-6">
         <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
           <p className="text-2xl font-bold">클랩(CLAP)</p>
           <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Frontend Engineer</p>
@@ -196,6 +196,26 @@ export default function AuthorLayout({ children, content }: Props) {
                 </ul>
               </li>
               <li>
+                <strong>릴리즈 커맨드를 자동 생성</strong>하는 기능 개발 및 npm 패키지 배포{' '}
+                <Link
+                  href="https://www.npmjs.com/package/generate-release-command"
+                  className="font-bold text-gray-900 underline dark:text-gray-200"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  (링크)
+                </Link>
+                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
+                  <li>
+                    이를 통해 릴리즈 드라이버가{' '}
+                    <strong>
+                      수동으로 커밋 해시를 수집하고, 시간 순으로 정렬하는 작업을 자동화
+                    </strong>
+                    하였습니다.
+                  </li>
+                </ul>
+              </li>
+              <li>
                 <strong>
                   Production 배포 시에 자동으로 Git Tag를 생성하고 push 하도록 워크플로우를 개선
                 </strong>
@@ -231,7 +251,7 @@ export default function AuthorLayout({ children, content }: Props) {
         <div className="flex flex-col gap-6 min-[768px]:w-[70%]">
           <div className="rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
             <h2 className="mb-2 text-lg font-bold text-teal-800">
-              💡 MAU 160만의 중고나라 웹서비스, 앱서비스 내의 웹뷰를 개발 및 유지보수합니다.
+              �� MAU 160만의 중고나라 웹서비스, 앱서비스 내의 웹뷰를 개발 및 유지보수합니다.
             </h2>
             <p className="text-sm text-gray-700">
               중고거래 헤비 유저로서, 사용자 관점에서 다양한 의견을 제시하고, 개발 뿐 아니라 기획
