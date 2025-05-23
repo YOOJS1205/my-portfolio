@@ -41,7 +41,7 @@ export default function AuthorLayout({ children, content }: Props) {
         </div>
       </div>
       <div className="flex items-center gap-10 space-y-2 pt-6 md:space-y-5">
-        <ul className="prose max-w-none pb-8 pt-8 text-[18px] dark:prose-invert xl:col-span-2">
+        <ul className="prose max-w-none pb-8 pt-8 text-[18px] font-semibold dark:prose-invert xl:col-span-2">
           {children}
         </ul>
       </div>
