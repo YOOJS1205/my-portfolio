@@ -14,7 +14,7 @@ export default function AuthorLayout({ children, content }: Props) {
   const { avatar, email, linkedin, github, blog } = content
 
   return (
-    <main className="mx-auto max-w-[1024px]">
+    <main className="mx-auto max-w-[1024px] font-semibold">
       <div className="flex items-center gap-10 space-y-2 pt-6 md:space-y-5">
         {avatar && (
           <Image
@@ -41,7 +41,7 @@ export default function AuthorLayout({ children, content }: Props) {
         </div>
       </div>
       <div className="flex items-center gap-10 space-y-2 pt-6 md:space-y-5">
-        <ul className="prose max-w-none pb-8 pt-8 text-[18px] font-semibold dark:prose-invert xl:col-span-2">
+        <ul className="prose max-w-none pb-8 pt-8 text-[18px] dark:prose-invert xl:col-span-2">
           {children}
         </ul>
       </div>
@@ -49,7 +49,7 @@ export default function AuthorLayout({ children, content }: Props) {
         Work Experience
       </h2>
 
-      <div className="flex gap-10 pb-10 font-semibold max-[768px]:flex-col max-[768px]:gap-6">
+      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
         <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
           <p className="text-2xl font-bold">클랩(CLAP)</p>
           <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Frontend Engineer</p>
