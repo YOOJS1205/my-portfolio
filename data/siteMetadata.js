@@ -2,11 +2,11 @@
 const siteMetadata = {
   title: '유준상',
   author: '유준상',
-  headerTitle: 'jundev',
-  description: '프론트엔드 개발자 유준상입니다.',
+  headerTitle: 'junsangyoo',
+  description: 'Product Engineer 유준상입니다.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://jundev.vercel.app',
+  siteUrl: 'https://junsangyoo.vercel.app',
   siteRepo: 'https://github.com/YOOJS1205/my-portfolio',
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/twitter-card.png',
@@ -14,7 +14,7 @@ const siteMetadata = {
   email: 'junsang8921@gmail.com',
   github: 'https://github.com/YOOJS1205',
   twitter: '',
-  blog: 'https://jundev.vercel.app',
+  blog: 'https://junsangyoo.vercel.app/blog',
   facebook: '',
   youtube: '',
   linkedin: 'https://www.linkedin.com/in/junsang-yoo-365228246/',
