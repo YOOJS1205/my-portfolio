@@ -14,17 +14,8 @@ export default function AuthorLayout({ children, content }: Props) {
 
   return (
     <main className="mx-auto max-w-[1024px] font-semibold">
-      <div className="flex items-center gap-10 space-y-2 pt-6 md:space-y-5">
-        {avatar && (
-          <Image
-            src={avatar}
-            alt="avatar"
-            width={192}
-            height={192}
-            className="h-48 w-48 rounded-full"
-          />
-        )}
-        <div>
+      <div className="flex items-center justify-between gap-10 space-y-2 pt-6 md:space-y-5">
+        <div className="flex flex-col justify-between">
           <h1 className="whitespace-pre-line text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
             <p>안녕하세요.</p>
             <p>Product Engineer 유준상입니다.</p>
@@ -38,24 +29,31 @@ export default function AuthorLayout({ children, content }: Props) {
             </a>
           </div>
         </div>
+        {avatar && (
+          <Image
+            src={avatar}
+            alt="avatar"
+            width={168}
+            height={168}
+            className="h-48 w-48 rounded-full"
+          />
+        )}
       </div>
-      <div className="flex items-center gap-10 space-y-2 pt-6 md:space-y-5">
-        <ul className="prose max-w-none pb-8 pt-8 text-[18px] dark:prose-invert xl:col-span-2">
-          {children}
-        </ul>
-      </div>
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <ul className="flex flex-col gap-4 py-9">{children}</ul>
+      <h3 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[16px] font-bold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
         Work Experience
-      </h2>
+      </h3>
 
-      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
-        <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
-          <p className="text-2xl font-bold">클랩(CLAP)</p>
-          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Frontend Engineer</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">2024.03 ~ 재직 중</p>
-        </div>
-        <div className="flex flex-col gap-6 min-[768px]:w-[70%]">
-          <div className="rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
+      <div className="flex flex-col gap-10 pb-10">
+        <div className="flex gap-10">
+          <div className="flex w-[20%] flex-col gap-2 dark:border-white">
+            <p className="text-2xl font-bold">클랩(CLAP)</p>
+            <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
+              Frontend Engineer
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">2024.03 ~ 재직 중</p>
+          </div>
+          <div className="w-[80%] rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
             <h2 className="mb-2 text-lg font-bold text-teal-800">
               💡 최고의 조직을 만드는 성장관리 솔루션 클랩을 개발, 유지보수합니다.
             </h2>
@@ -63,110 +61,113 @@ export default function AuthorLayout({ children, content }: Props) {
               제품의 복잡도를 줄이고, 사용자 경험을 향상시키는 방향으로 기능을 설계하고 개발합니다.
             </p>
           </div>
-
-          {/* Tech Stack 박스 추가 */}
-          <div className="mb-2 flex flex-wrap items-center gap-1">
-            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
-              Next.js
-            </span>
-            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
-              React
-            </span>
-            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
-              TypeScript
-            </span>
-            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
-              Tanstack Query
-            </span>
-            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
-              Storybook
-            </span>
-            <span className="inline-block rounded border border-teal-200 bg-teal-50 px-2 py-0.5 text-[14px] font-medium text-teal-800">
-              Jest
-            </span>
-          </div>
-
-          {/* 섹션 1 */}
-          <section className="text-md p-5">
+        </div>
+        <div className="flex flex-col gap-6">
+          <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 대용량 데이터 테이블 컴포넌트를 설계하였습니다.
+              📦 클라이언트–서버 간 계산 불일치로 발생할 수 있는 평가 오류를 사전에 차단했습니다.
             </h3>
-            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
+            <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
-                사내 디자인 시스템에서 사용하는{' '}
-                <strong>Material UI 기반의 Material React Table 채택 및 PoC 공유</strong>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    Headless 모드가 아닌, MRT의 기본 기능을 활용하면서{' '}
-                    <strong>사내 디자인 시스템에 맞춘 스타일 커스터마이징</strong> 적용
-                  </li>
-                </ul>
-              </li>
-              <li>Row selection, tree 등 다양한 시나리오에 대응 가능한 테이블 컴포넌트 개발</li>
-              <li>
-                고객 UX 분석을 통해 <strong>전체 선택 제거 → 최대 Page Size 선택 정책</strong>으로
-                인터랙션 간소화
+                등급별 퍼센티지를 기반으로 할당 인원 수를 계산하는 과정에서, 클라이언트와 서버가
+                각각 계산을 수행해야 하는 구조로 인해{' '}
+                <strong>할당 인원 계산 및 소수점 처리 방식 차이에 따른 결과 불일치 가능성</strong>이
+                존재했습니다.
               </li>
               <li>
-                가상 스크롤 + O(n) 트리 유틸 적용으로 <strong>대용량 렌더링 최적화</strong>
+                이를 해결하기 위해 특정 고객사의 실제 사용 시나리오를 기반으로
+                기획·QA·서버·클라이언트가 함께 참여하는 싱크 미팅을 주도하고,{' '}
+                <strong>엣지 케이스(소수점 계산)까지 포함한 테스트 케이스를 정의</strong>
+                했습니다.
               </li>
-              <li>무한 스크롤로 초기 로딩 성능 개선</li>
               <li>
-                <strong>Optimistic Update</strong>를 통하여 별도의 로딩 없이 사용자 액션에 대한
-                즉각적 피드백 제공
+                정의된 TC를 기준으로 클라이언트와 서버 양쪽에 동일한 테스트 코드를 작성하도록 하여{' '}
+                <strong>계산 로직의 일관성을 강제</strong>하고, 운영 단계에서의 평가 오류를 사전에
+                방지했습니다.
+              </li>
+            </ul>
+            <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+              <li>QA 과정에서 계산 관련 이슈 없이 검증 완료 → QA 리드타임 단축</li>
+              <li>운영 배포 이후 관련 VOC 0건</li>
+            </ul>
+          </section>
+
+          <section className="text-md">
+            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+              📦 대량 데이터 세팅을 사용자 주도로 전환하고, 동시 수정으로 인한 데이터 충돌 문제를
+              해결했습니다.
+            </h3>
+            <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
+              <li>
+                보상 대상자 및 리뷰 매칭 정보를 기존에는 서비스 내에서 수동으로 입력하거나, CS 팀이
+                대신 세팅해야 하는 구조로 인해{' '}
+                <strong>운영 비용이 높고 사용자 자율성이 제한되는 문제</strong>가 있었습니다.
+              </li>
+              <li>
+                이를 해결하기 위해 엑셀 업로드를 통해 다수의 데이터를 한 번에 세팅할 수 있도록
+                구현하여 <strong>사용자가 직접 대량 데이터를 관리할 수 있는 환경</strong>을
+                구축했습니다.
+              </li>
+              <li>
+                특히 여러 관리자가 동시에 데이터를 수정할 수 있는 환경에서 발생할 수 있는 충돌
+                문제를 해결하기 위해,{' '}
+                <strong>데이터 변경 이벤트를 감지하고 중앙에서 상태를 제어하는 구조</strong>를
+                설계하고, <strong>수정 이력 기반으로 충돌 상황을 안내하는 UX</strong>를
+                제공했습니다.
+              </li>
+              <li>
+                이를 통해 운영 개입 없이 사용자가 직접 데이터를 처리할 수 있도록 개선하고,{' '}
+                <strong>데이터 정합성을 유지하면서도 운영 공수를 절감</strong>했습니다.
+              </li>
+            </ul>
+            <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+              <li>CS 팀이 수행하던 대량 세팅 작업을 사용자 기능으로 전환하여 운영 비용 절감</li>
+              <li>
+                동시 수정 상황에서도 데이터 충돌을 방지하는 구조를 설계해 안정적인 운영 환경 구축
               </li>
             </ul>
           </section>
 
-          <section className="text-md p-5">
+          <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📝 가장 복잡한 도메인인 리뷰 도메인을 고도화하여 고객에게 편의를 제공하였습니다.
+              📦 사용자 행동을 재설계하고 기술 선택을 통해 테이블 성능 문제를 근본적으로
+              해결했습니다.
             </h3>
-            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
+            <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
-                <span className="font-semibold">피평가자별 리뷰 작성자 매칭·승인 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    평가 준비 과정에서 발생할 수 있는 오류를 최소화하고, 피평가자의 평가자 관리를
-                    시스템에서 할 수 있도록 함
-                  </li>
-                </ul>
+                대규모 고객사 오픈을 앞두고 기존 테이블에서 전체 선택 후 모달을 여는 구조에서{' '}
+                <strong>
+                  선택된 모든 row id가 query params로 전달되며 URL length 제한을 초과하는 문제
+                </strong>
+                가 발생했습니다.
               </li>
               <li>
-                <span className="font-semibold">리뷰 예약 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    사용자가 원하는 시간에 리뷰를 시작할 수 있도록 하여, 기존에 즉시 시작해야만 했던
-                    불편함을 해소
-                  </li>
-                </ul>
+                로그 기반으로 사용자 행동을 분석한 결과 전체 선택 사용성이 낮음을 확인하고,{' '}
+                <strong>페이지 단위 선택으로 인터랙션을 재설계</strong>하여 문제를 근본적으로
+                해결했습니다.
               </li>
               <li>
-                <span className="font-semibold">'리뷰 작성 관리자' 권한 분리 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    관리자 외에도 리뷰 작성자 및 피평가자를 관리할 수 있도록 하여, 관리자가 아닌
-                    사람도 더 효율적으로 프로세스를 진행 가능
-                  </li>
-                </ul>
+                성능 개선 TF에 참여하여 dnd, 가상화 등 확장 요구사항을 만족하면서도 제한된 일정 내
+                도입이 가능하도록{' '}
+                <strong>
+                  Material React Table을 채택하고 사내 디자인 시스템에 맞게 커스터마이징
+                </strong>
+                했습니다.
               </li>
               <li>
-                <span className="font-semibold">목표 연계형 리뷰 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    리뷰와 목표를 자동으로 연결, 목표 달성 경로를 명확하게 제시하여 사용자 피드백을
-                    더 직관적으로 제공
-                  </li>
-                </ul>
+                Storybook 기반 PoC를 통해 빠르게 검증 및 공유하고,{' '}
+                <strong>
+                  가상 스크롤과 Optimistic Update를 적용하여 렌더링 성능과 사용자 응답성을 개선
+                </strong>
+                했습니다.
+              </li>
+            </ul>
+            <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+              <li>
+                사용자 인터랙션 구조 개선을 통해 URL length 초과로 발생하던 요청 실패 문제 해결
               </li>
               <li>
-                <span className="font-semibold">즉시 목표 추가 기능</span>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    사용자가 리뷰 작성 중 목표를 추가할 수 있도록 하여, 수립한 목표가 없더라도
-                    평가할 수 있는 목표를 추가할 수 있는 기능을 제공
-                  </li>
-                </ul>
+                가상화 및 Optimistic Update 도입으로 대용량 데이터 환경에서도 부드러운 UX 제공
               </li>
             </ul>
           </section>
@@ -222,10 +223,6 @@ export default function AuthorLayout({ children, content }: Props) {
                   <li>이를 통해 수동으로 Git Tag를 생성하고 push하는 불편함을 해결하였습니다.</li>
                 </ul>
               </li>
-              <li>Atomic Design, Storybook 기반의 컴포넌트 단위 개발 및 문서화</li>
-              <li>Jest 기반 테스트 코드 작성으로 유틸/훅의 신뢰성 확보</li>
-              <li>Sentry 수집 에러 필터링 → 의미 있는 에러 대응 체계 구축</li>
-              <li>VOC 이전에 문제를 발견하고 해결하는 사전 대응 시스템 운영</li>
             </ul>
           </section>
 
