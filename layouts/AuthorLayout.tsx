@@ -46,16 +46,19 @@ export default function AuthorLayout({ children, content }: Props) {
       <div className="flex flex-col gap-10 pb-10">
         <div className="flex gap-10">
           <div className="flex w-[20%] flex-col gap-2 dark:border-white">
-            <p className="text-2xl font-bold">클랩(CLAP)</p>
-            <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
+            <p className="text-xl font-bold">클랩(CLAP)</p>
+            <p className="text-md font-medium text-gray-700 dark:text-gray-300">
               Frontend Engineer
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">2024.03 ~ 재직 중</p>
           </div>
-          <div className="w-[80%] rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
-            <h2 className="mb-2 text-lg font-bold text-teal-800">
-              💡 최고의 조직을 만드는 성장관리 솔루션 클랩을 개발, 유지보수합니다.
-            </h2>
+          <div className="w-[80%] rounded-xl border border-teal-200 bg-teal-50 px-6 py-4 shadow-sm">
+            <p className="text-md mb-2 font-bold text-teal-800">
+              목표 관리, 리뷰 등으로 조직의 성장을 돕는 클랩 서비스입니다.{' '}
+              <Link href="https://welcome.clap.company" target="_blank" className="underline">
+                (링크)
+              </Link>
+            </p>
             <p className="text-sm text-gray-700">
               제품의 복잡도를 줄이고, 사용자 경험을 향상시키는 방향으로 기능을 설계하고 개발합니다.
             </p>
@@ -64,7 +67,7 @@ export default function AuthorLayout({ children, content }: Props) {
         <div className="flex flex-col gap-6">
           <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 클라이언트–서버 간 계산 불일치로 발생할 수 있는 평가 오류를 사전에 차단
+              클라이언트–서버 간 계산 불일치로 발생할 수 있는 평가 오류를 사전에 차단
             </h3>
             <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
@@ -87,7 +90,7 @@ export default function AuthorLayout({ children, content }: Props) {
 
           <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 대량 데이터 세팅을 사용자 주도로 전환 및 동시 수정으로 인한 데이터 충돌 문제 해결
+              대량 데이터 세팅을 사용자 주도로 전환 및 동시 수정으로 인한 데이터 충돌 문제 해결
             </h3>
             <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
@@ -117,7 +120,7 @@ export default function AuthorLayout({ children, content }: Props) {
 
           <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 사용자 행동을 재설계하고 기술 선택을 통해 테이블 성능 문제를 근본적으로 해결
+              사용자 행동을 재설계하고 기술 선택을 통해 테이블 성능 문제를 근본적으로 해결
             </h3>
             <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
@@ -151,7 +154,7 @@ export default function AuthorLayout({ children, content }: Props) {
 
           <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 장애를 빠르게 탐지하고 대응할 수 있는 모니터링 체계를 구축
+              장애를 빠르게 탐지하고 대응할 수 있는 모니터링 체계를 구축
             </h3>
             <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
@@ -208,120 +211,130 @@ export default function AuthorLayout({ children, content }: Props) {
         </div>
       </div>
 
-      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
-        <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
-          <p className="text-2xl font-bold">중고나라</p>
-          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Frontend Engineer</p>
+      <div className="flex gap-10 pb-10">
+        <div className="flex w-[20%] flex-col gap-2 dark:border-white">
+          <p className="text-xl font-bold">중고나라</p>
+          <p className="text-md font-medium text-gray-700 dark:text-gray-300">Frontend Engineer</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">2023.03 ~ 2024.03</p>
         </div>
-        <div className="flex flex-col gap-6 min-[768px]:w-[70%]">
-          <div className="rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
-            <h2 className="mb-2 text-lg font-bold text-teal-800">
-              MAU 160만의 중고나라 웹서비스, 앱서비스 내의 웹뷰를 개발 및 유지보수합니다.
-            </h2>
-            <p className="text-sm text-gray-700">
-              중고거래 헤비 유저로서, 사용자 관점에서 다양한 의견을 제시하고, 개발 뿐 아니라 기획
-              측면에서도 기여하였습니다.
-            </p>
-          </div>
-
-          {/* 웹서비스 */}
-          <section className="text-md p-5">
-            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              🛒 매출이 없던 웹 서비스에서 앱 서비스 대비 10% 매출을 낼 수 있도록 기여하였습니다.
-            </h3>
-            <ul className="list-disc space-y-3 pl-6 text-gray-800 dark:text-gray-100">
-              <li>
-                <strong>Web Socket 기반</strong> 채팅 서비스 신규 구축으로 앱 대비 웹 서비스에서{' '}
-                <strong>매출 10% 달성</strong>에 기여
-              </li>
-              <li>
-                AWS Amplify의 고정 IP 미지원 문제를 파악하고,{' '}
-                <strong>사내망 전용 테스트 환경</strong>을 <strong>Docker 기반</strong>으로
-                마이그레이션
-              </li>
-              <li>
-                <span className="font-medium">Tanstack Query의 staleTime/cacheTime</span> 설정을
-                통해 네트워크 요청 수 최적화
-              </li>
-            </ul>
-          </section>
-
-          <section className="text-md p-5">
-            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              🛠 한 명의 중고거래 유저의 관점에서, 제품 사용성 개선에 기여하였습니다.
-            </h3>
-            <ul className="list-disc space-y-3 pl-6">
-              <li>
-                <strong>Suspense & Lazy Loading</strong>을 활용해 스켈레톤 UI 제공,{' '}
-                <strong>Network Waterfall 문제를 해결</strong>하여 로딩 속도 개선
-              </li>
-              <li>
-                Elasticsearch의 비실시간성 이슈를 <strong>낙관적 업데이트</strong>로 해결하여 사용자
-                대기 시간 최소화
-              </li>
-            </ul>
-          </section>
-
-          {/* 앱 내 웹뷰 */}
-          <section className="text-md p-5">
-            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              🔧 부족한 리소스에서도 코드 품질 개선을 멈추지 않았습니다.
-            </h3>
-            <ul className="list-disc space-y-3 pl-6">
-              <li>
-                <span className="font-medium">React Testing Library</span>로 배송 관련 UI 테스트를
-                구축하여 QA 리소스 없이 <strong>'받는 분/보내는 분' 로직을 안정적으로 분리</strong>
-              </li>
-              <li>
-                팀원이 개발한 로직을 <span className="font-medium">테스트 코드 기반으로 체화</span>
-                하고, <strong>세븐일레븐 편의점 택배 서비스</strong> 기능을 안정적으로 런칭
-              </li>
-            </ul>
-          </section>
-
-          <section className="text-md p-5">
-            <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📝 새로운 팀원이 빠르게 적응할 수 있도록 온보딩 가이드를 문서화하였습니다.
-            </h3>
-            <ul className="list-disc space-y-3 pl-6">
-              <li>
-                처음 들어오는 팀원이 생소해할 수 있는 AWS 환경 설정 및 사용법을 문서화하였습니다.
-              </li>
-              <li>웹, 앱 서비스의 히스토리 및 개발 환경을 문서화하였습니다.</li>
-            </ul>
-          </section>
+        <div className="w-[80%] rounded-xl border border-teal-200 bg-teal-50 px-6 py-4 shadow-sm">
+          <p className="text-md mb-2 font-bold text-teal-800">
+            MAU 160만의 중고나라 웹서비스, 앱서비스 내의 웹뷰를 개발 및 유지보수합니다.
+          </p>
+          <p className="text-sm text-gray-700">
+            중고거래 헤비 유저로서, 사용자 관점에서 다양한 의견을 제시하고, 개발 뿐 아니라 기획
+            측면에서도 기여하였습니다.
+          </p>
         </div>
+      </div>
+
+      <div className="flex flex-col gap-6 pb-10">
+        <section className="text-md">
+          <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+            매출이 없던 웹 서비스에서 앱 서비스 대비 10% 매출을 낼 수 있도록 기여
+          </h3>
+          <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
+            <li>
+              <strong>Web Socket 기반</strong> 채팅 서비스를 신규 구축하여 앱 대비 웹 서비스에서
+              <strong> 매출 10% 달성</strong>에 기여했습니다.
+            </li>
+            <li>
+              AWS Amplify의 고정 IP 미지원 문제를 파악하고, <strong>사내망 전용 테스트 환경</strong>
+              을 <strong>Docker 기반</strong>으로 마이그레이션했습니다.
+            </li>
+            <li>
+              <span className="font-medium">Tanstack Query의 staleTime/cacheTime</span> 설정을 통해
+              네트워크 요청 수를 최적화했습니다.
+            </li>
+          </ul>
+          <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+            <li>웹 서비스 채팅 기능 구축을 통해 신규 매출 채널 확보</li>
+            <li>요청 수 최적화로 서비스 응답성과 운영 효율 개선</li>
+          </ul>
+        </section>
+
+        <section className="text-md">
+          <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+            사용자 관점에서 제품 사용성 개선에 기여
+          </h3>
+          <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
+            <li>
+              <strong>Suspense & Lazy Loading</strong>을 활용해 스켈레톤 UI를 제공하고,
+              <strong> Network Waterfall 문제를 해결</strong>하여 로딩 속도를 개선했습니다.
+            </li>
+            <li>
+              Elasticsearch의 비실시간성 이슈를 <strong>낙관적 업데이트</strong>로 보완하여 사용자
+              대기 시간을 최소화했습니다.
+            </li>
+          </ul>
+          <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+            <li>지연 구간의 체감 성능 개선으로 사용성 향상</li>
+            <li>검색/수정 플로우에서 대기 시간 감소</li>
+          </ul>
+        </section>
+
+        <section className="text-md">
+          <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+            부족한 리소스 환경에서도 코드 품질 개선 지속
+          </h3>
+          <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
+            <li>
+              <span className="font-medium">React Testing Library</span>로 배송 관련 UI 테스트를
+              구축하여 QA 리소스 없이 <strong>'받는 분/보내는 분' 로직을 안정적으로 분리</strong>
+              했습니다.
+            </li>
+            <li>
+              팀원이 개발한 로직을 <span className="font-medium">테스트 코드 기반으로 체화</span>
+              하고, <strong>세븐일레븐 편의점 택배 서비스</strong> 기능을 안정적으로 런칭했습니다.
+            </li>
+          </ul>
+          <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+            <li>QA 의존도를 줄이면서 핵심 로직 안정성 확보</li>
+            <li>테스트 기반 협업으로 신규 기능의 배포 안정성 향상</li>
+          </ul>
+        </section>
+
+        <section className="text-md">
+          <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
+            새로운 팀원의 빠른 적응을 위한 온보딩 가이드 문서화
+          </h3>
+          <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
+            <li>처음 합류하는 팀원이 어려워할 수 있는 AWS 환경 설정 및 사용법을 문서화했습니다.</li>
+            <li>웹/앱 서비스의 히스토리 및 개발 환경을 문서화했습니다.</li>
+          </ul>
+          <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+            <li>신규 팀원의 초기 적응 시간 단축</li>
+            <li>팀 공통 개발 컨텍스트와 운영 지식의 재사용성 강화</li>
+          </ul>
+        </section>
       </div>
 
       {/* 프로젝트 */}
       <h2 className="mb-10 whitespace-pre border-b-[2px] border-black  text-[16px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[20px] sm:leading-10 md:text-[20px] md:leading-14">
         Project
       </h2>
-      <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
-        <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
+      <div className="flex gap-10 pb-10">
+        <div className="flex w-[20%] flex-col gap-2 dark:border-white">
           <p className="text-lg font-bold">또잇또잇</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">2023.11 ~ 2024.02</p>
         </div>
-        <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
-          <div className="flex flex-col gap-4">
-            <p className="rounded-lg bg-teal-500 px-4 py-4 text-[18px] font-semibold">
-              맛집을 알아보기 위한 새로운 기준을 제공합니다. <br />두 번 이상 간 내 맛집을 공유하는
-              서비스
-            </p>
-            <ul className="flex list-disc flex-col gap-4 pl-6">
-              <li>팀 리드로서 회의를 주도적으로 진행하고, 파트 별 일정관리를 담당하였습니다.</li>
-              <li>로그인, 약관, 검색, 리뷰 작성 페이지 및 기능을 담당하여 개발하였습니다.</li>
-              <li>
-                Github Actions의 workflow를 통해 CI 단계에서 Lint, 빌드 테스트, 프리뷰 기능을
-                추가하여 배포 시 에러가 발생할 수 있는 가능성을 낮췄습니다.
-              </li>
-              <li>
-                첫 로그인 여부에 따른 리다이렉트 로직을 Next.js의 middleware를 활용하여 서버
-                사이드에서 수행하도록 하였고, 이를 통해 사용자가 빈 화면을 보지 않도록 하였습니다.
-              </li>
-            </ul>
-          </div>
+        <div className="flex w-[80%] flex-col gap-4">
+          <p className="text-md rounded-xl border border-teal-200 bg-teal-50 px-6 py-4 font-bold text-teal-800">
+            맛집을 알아보기 위한 새로운 기준을 제공합니다. <br />두 번 이상 간 내 맛집을 공유하는
+            서비스
+          </p>
+          <ul className="flex list-disc flex-col gap-2 space-y-2 pl-6 text-gray-700 dark:text-gray-200">
+            <li>팀 리드로서 회의를 주도적으로 진행하고, 파트 별 일정관리를 담당하였습니다.</li>
+            <li>로그인, 약관, 검색, 리뷰 작성 페이지 및 기능을 담당하여 개발하였습니다.</li>
+            <li>
+              Github Actions의 workflow를 통해 CI 단계에서 Lint, 빌드 테스트, 프리뷰 기능을 추가하여
+              배포 시 에러가 발생할 수 있는 가능성을 낮췄습니다.
+            </li>
+            <li>
+              첫 로그인 여부에 따른 리다이렉트 로직을 Next.js의 middleware를 활용하여 서버
+              사이드에서 수행하도록 하였고, 이를 통해 사용자가 빈 화면을 보지 않도록 하였습니다.
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -329,37 +342,33 @@ export default function AuthorLayout({ children, content }: Props) {
       <h2 className="mb-10 whitespace-pre border-b-[2px] border-black text-[16px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[20px] sm:leading-10 md:text-[20px] md:leading-14">
         Activity
       </h2>
-      <div className="flex flex-col gap-[60px] pb-10">
-        <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
-          <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
+      <div className="flex flex-col gap-10 pb-10">
+        <div className="flex gap-10">
+          <div className="flex w-[20%] flex-col gap-2 dark:border-white">
             <p className="text-lg font-bold">디프만 14, 15기</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">2023.11 ~ 2024.09</p>
           </div>
-          <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
-            <div className="flex flex-col gap-4">
-              <ul className="flex list-disc flex-col gap-4 pl-6">
-                <li>
-                  디자이너와 개발자가 만나 서비스 기획부터 런칭까지 하나의 프로덕트를 완성하며
-                  성장하는 IT 커뮤니티인 디프만에 프론트엔드 개발자로 참여하였습니다.
-                </li>
-                <li>프로젝트 팀 리드를 담당하였습니다.</li>
-                <li>15기에는 운영진으로 참여하여, 70명 규모의 행사를 전반적으로 관리하였습니다.</li>
-              </ul>
-            </div>
+          <div className="w-[80%]">
+            <ul className="flex list-disc flex-col gap-2 space-y-2 pl-6 text-gray-700 dark:text-gray-200">
+              <li>
+                디자이너와 개발자가 만나 서비스 기획부터 런칭까지 하나의 프로덕트를 완성하며
+                성장하는 IT 커뮤니티인 디프만에 프론트엔드 개발자로 참여하였습니다.
+              </li>
+              <li>프로젝트 팀 리드를 담당하였습니다.</li>
+              <li>15기에는 운영진으로 참여하여, 70명 규모의 행사를 전반적으로 관리하였습니다.</li>
+            </ul>
           </div>
         </div>
-        <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
-          <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
+        <div className="flex gap-10">
+          <div className="flex w-[20%] flex-col gap-2 dark:border-white">
             <p className="text-lg font-bold">SOPT 31기</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">2022.09 ~ 2023.01</p>
           </div>
-          <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
-            <div className="flex flex-col gap-4">
-              <ul className="flex list-disc flex-col gap-4 pl-6">
-                <li>대학생 연합 IT 벤쳐창업 동아리인 SOPT에 프론트엔드 개발자로 참여하였습니다.</li>
-                <li>기획자, 디자이너, 백엔드 개발자와 협업하여 서비스 배포를 경험하였습니다.</li>
-              </ul>
-            </div>
+          <div className="w-[80%]">
+            <ul className="flex list-disc flex-col gap-2 space-y-2 pl-6 text-gray-700 dark:text-gray-200">
+              <li>대학생 연합 IT 벤쳐창업 동아리인 SOPT에 프론트엔드 개발자로 참여하였습니다.</li>
+              <li>기획자, 디자이너, 백엔드 개발자와 협업하여 서비스 배포를 경험하였습니다.</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -368,10 +377,14 @@ export default function AuthorLayout({ children, content }: Props) {
       <h2 className="mb-10 whitespace-pre border-b-[2px] border-black text-[16px] font-extrabold leading-9 tracking-tight text-gray-800 dark:border-white dark:text-gray-100 sm:text-[20px] sm:leading-10 md:text-[20px] md:leading-14">
         Education
       </h2>
-      <div>
-        <p className="text-[20px]">경희대학교</p>
-        <p className="text-[20px]">2017.03 ~ 2023.08</p>
-        <p>산업경영공학과 졸업</p>
+      <div className="flex gap-10">
+        <div className="flex w-[20%] flex-col gap-2 dark:border-white">
+          <p className="text-lg font-bold">경희대학교</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">2017.03 ~ 2023.08</p>
+        </div>
+        <div className="w-[80%]">
+          <p className="text-gray-700 dark:text-gray-200">산업경영공학과 졸업</p>
+        </div>
       </div>
     </main>
   )
