@@ -151,8 +151,14 @@ export default makeSource({
     ],
   },
   onSuccess: async (importData) => {
-    const { allBlogs } = await importData()
-    createTagCount(allBlogs)
-    createSearchIndex(allBlogs)
+    try {
+      const { allBlogs } = await importData()
+      createTagCount(allBlogs)
+      createSearchIndex(allBlogs)
+    } catch (error) {
+      // Some Node/runtime combinations fail to parse legacy JSON import assertions
+      // in generated modules. Keep build running with the last committed artifacts.
+      console.warn('Skipping Contentlayer onSuccess due to import error:', error)
+    }
   },
 })

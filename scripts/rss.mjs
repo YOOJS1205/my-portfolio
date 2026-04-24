@@ -3,10 +3,12 @@ import path from 'path'
 import GithubSlugger from 'github-slugger'
 import { escape } from 'pliny/utils/htmlEscaper.js'
 import siteMetadata from '../data/siteMetadata.js'
-import { allBlogs } from '../.contentlayer/generated/index.mjs'
 import { sortPosts } from 'pliny/utils/contentlayer.js'
 
 const tagData = JSON.parse(readFileSync(new URL('../app/tag-data.json', import.meta.url), 'utf-8'))
+const allBlogs = JSON.parse(
+  readFileSync(new URL('../.contentlayer/generated/Blog/_index.json', import.meta.url), 'utf-8')
+)
 
 const generateRssItem = (config, post) => `
   <item>
