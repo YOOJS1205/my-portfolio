@@ -16,9 +16,8 @@ export default function AuthorLayout({ children, content }: Props) {
     <main className="mx-auto max-w-[1024px] font-semibold">
       <div className="flex items-center justify-between gap-10 space-y-2 pt-6 md:space-y-5">
         <div className="flex flex-col justify-between">
-          <h1 className="whitespace-pre-line text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
-            <p>안녕하세요.</p>
-            <p>Product Engineer 유준상입니다.</p>
+          <h1 className="whitespace-pre-line font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-[24px] sm:leading-10 md:text-[24px] md:leading-14">
+            Product Engineer 유준상입니다.
           </h1>
           <div className="flex items-center space-x-4 pt-6">
             <SocialIcon kind="mail" href={`mailto:${email}`} />
@@ -39,8 +38,8 @@ export default function AuthorLayout({ children, content }: Props) {
           />
         )}
       </div>
-      <ul className="flex flex-col gap-4 py-9">{children}</ul>
-      <h3 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[16px] font-bold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <ul className="flex flex-col gap-4 py-6">{children}</ul>
+      <h3 className="mb-10 whitespace-pre border-b-[2px] border-black text-[16px] font-bold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[20px] sm:leading-10 md:text-[20px] md:leading-14">
         Work Experience
       </h3>
 
@@ -65,25 +64,19 @@ export default function AuthorLayout({ children, content }: Props) {
         <div className="flex flex-col gap-6">
           <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 클라이언트–서버 간 계산 불일치로 발생할 수 있는 평가 오류를 사전에 차단했습니다.
+              📦 클라이언트–서버 간 계산 불일치로 발생할 수 있는 평가 오류를 사전에 차단
             </h3>
             <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
-                등급별 퍼센티지를 기반으로 할당 인원 수를 계산하는 과정에서, 클라이언트와 서버가
-                각각 계산을 수행해야 하는 구조로 인해{' '}
-                <strong>할당 인원 계산 및 소수점 처리 방식 차이에 따른 결과 불일치 가능성</strong>이
+                등급별 퍼센티지를 기반으로 할당 인원을 계산하는 과정에서, 클라이언트와 서버가 각각
+                계산을 수행하며 <strong>소수점 처리 방식 차이로 결과 불일치 가능성</strong>이
                 존재했습니다.
               </li>
               <li>
-                이를 해결하기 위해 특정 고객사의 실제 사용 시나리오를 기반으로
-                기획·QA·서버·클라이언트가 함께 참여하는 싱크 미팅을 주도하고,{' '}
-                <strong>엣지 케이스(소수점 계산)까지 포함한 테스트 케이스를 정의</strong>
+                이를 해결하기 위해 고객사 시나리오 기반 싱크 미팅을 주도하고,{' '}
+                <strong>엣지 케이스를 포함한 테스트 케이스를 정의</strong>한 뒤 클라이언트와 서버
+                양쪽에 동일한 테스트 코드를 적용하여 <strong>계산 로직의 일관성을 강제</strong>
                 했습니다.
-              </li>
-              <li>
-                정의된 TC를 기준으로 클라이언트와 서버 양쪽에 동일한 테스트 코드를 작성하도록 하여{' '}
-                <strong>계산 로직의 일관성을 강제</strong>하고, 운영 단계에서의 평가 오류를 사전에
-                방지했습니다.
               </li>
             </ul>
             <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
@@ -94,30 +87,24 @@ export default function AuthorLayout({ children, content }: Props) {
 
           <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 대량 데이터 세팅을 사용자 주도로 전환하고, 동시 수정으로 인한 데이터 충돌 문제를
-              해결했습니다.
+              📦 대량 데이터 세팅을 사용자 주도로 전환 및 동시 수정으로 인한 데이터 충돌 문제 해결
             </h3>
             <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
-                보상 대상자 및 리뷰 매칭 정보를 기존에는 서비스 내에서 수동으로 입력하거나, CS 팀이
-                대신 세팅해야 하는 구조로 인해{' '}
-                <strong>운영 비용이 높고 사용자 자율성이 제한되는 문제</strong>가 있었습니다.
+                보상 대상자 및 리뷰 매칭 정보를 기존에는 수동 입력하거나 CS 팀이 대신 세팅해야 하는
+                구조로 인해 <strong>운영 비용이 높고 사용자 자율성이 제한되는 문제</strong>가
+                있었습니다.
               </li>
               <li>
-                이를 해결하기 위해 엑셀 업로드를 통해 다수의 데이터를 한 번에 세팅할 수 있도록
-                구현하여 <strong>사용자가 직접 대량 데이터를 관리할 수 있는 환경</strong>을
+                이를 해결하기 위해 엑셀 업로드를 도입하여{' '}
+                <strong>사용자가 직접 대량 데이터를 일괄 관리할 수 있는 환경</strong>을
                 구축했습니다.
               </li>
               <li>
-                특히 여러 관리자가 동시에 데이터를 수정할 수 있는 환경에서 발생할 수 있는 충돌
-                문제를 해결하기 위해,{' '}
-                <strong>데이터 변경 이벤트를 감지하고 중앙에서 상태를 제어하는 구조</strong>를
-                설계하고, <strong>수정 이력 기반으로 충돌 상황을 안내하는 UX</strong>를
-                제공했습니다.
-              </li>
-              <li>
-                이를 통해 운영 개입 없이 사용자가 직접 데이터를 처리할 수 있도록 개선하고,{' '}
-                <strong>데이터 정합성을 유지하면서도 운영 공수를 절감</strong>했습니다.
+                특히 다수의 관리자가 동시에 데이터를 수정하는 환경에서 발생하는 충돌 문제를 해결하기
+                위해 <strong>데이터 변경 이벤트 기반으로 상태를 중앙 제어하는 구조</strong>를
+                설계하고, <strong>수정 이력 기반 UX로 충돌 상황을 안내</strong>하여 데이터 정합성을
+                유지했습니다.
               </li>
             </ul>
             <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
@@ -130,34 +117,24 @@ export default function AuthorLayout({ children, content }: Props) {
 
           <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              📦 사용자 행동을 재설계하고 기술 선택을 통해 테이블 성능 문제를 근본적으로
-              해결했습니다.
+              📦 사용자 행동을 재설계하고 기술 선택을 통해 테이블 성능 문제를 근본적으로 해결
             </h3>
             <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
-                대규모 고객사 오픈을 앞두고 기존 테이블에서 전체 선택 후 모달을 여는 구조에서{' '}
-                <strong>
-                  선택된 모든 row id가 query params로 전달되며 URL length 제한을 초과하는 문제
-                </strong>
-                가 발생했습니다.
+                대규모 고객사 오픈 과정에서 전체 선택 시 선택된 row id가 query params로 전달되며{' '}
+                <strong>URL length 제한을 초과하는 문제</strong>가 발생했습니다.
               </li>
               <li>
-                로그 기반으로 사용자 행동을 분석한 결과 전체 선택 사용성이 낮음을 확인하고,{' '}
+                로그 기반으로 사용자 행동을 분석해 전체 선택 사용성이 낮음을 확인하고,{' '}
                 <strong>페이지 단위 선택으로 인터랙션을 재설계</strong>하여 문제를 근본적으로
                 해결했습니다.
               </li>
               <li>
-                성능 개선 TF에 참여하여 dnd, 가상화 등 확장 요구사항을 만족하면서도 제한된 일정 내
-                도입이 가능하도록{' '}
+                동시에 dnd, 가상화 요구사항을 충족하기 위해{' '}
+                <strong>Material React Table을 도입하고 디자인 시스템에 맞게 커스터마이징</strong>
+                했으며,{' '}
                 <strong>
-                  Material React Table을 채택하고 사내 디자인 시스템에 맞게 커스터마이징
-                </strong>
-                했습니다.
-              </li>
-              <li>
-                Storybook 기반 PoC를 통해 빠르게 검증 및 공유하고,{' '}
-                <strong>
-                  가상 스크롤과 Optimistic Update를 적용하여 렌더링 성능과 사용자 응답성을 개선
+                  가상 스크롤과 Optimistic Update 적용으로 렌더링 성능과 응답성을 개선
                 </strong>
                 했습니다.
               </li>
@@ -172,67 +149,60 @@ export default function AuthorLayout({ children, content }: Props) {
             </ul>
           </section>
 
-          {/* 섹션 2 */}
-          <section className="text-md p-5">
+          <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              🧪 메이커들의 생산성을 높이기 위해 노력합니다.
+              📦 장애를 빠르게 탐지하고 대응할 수 있는 모니터링 체계를 구축
             </h3>
-            <ul className="text-md list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
+            <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
               <li>
-                <strong>CI 테스트 속도를 1200초에서 90초로 대폭 개선</strong>{' '}
-                <Link
-                  className="font-bold text-gray-900 underline dark:text-gray-200"
-                  href="/blog/jest-speed-improvement"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  (링크)
-                </Link>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    ts-auto-mock의 런타임 타입 체크로 인한 성능 이슈를 해결하기 위해 createMock 유틸
-                    함수를 개발하여 2600개의 테스트 케이스 실행 시간 단축
-                  </li>
-                </ul>
+                기존 Sentry 기반 환경에서 서버 팀의 Datadog 도입에 맞춰 PoC를 진행하고,{' '}
+                <strong>통합 모니터링이 가능한 Datadog으로 마이그레이션</strong>했습니다.
               </li>
               <li>
-                <strong>릴리즈 커맨드를 자동 생성</strong>하는 기능 개발 및 npm 패키지 배포{' '}
-                <Link
-                  href="https://www.npmjs.com/package/generate-release-command"
-                  className="font-bold text-gray-900 underline dark:text-gray-200"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  (링크)
-                </Link>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>
-                    이를 통해 릴리즈 드라이버가{' '}
-                    <strong>
-                      수동으로 커밋 해시를 수집하고, 시간 순으로 정렬하는 작업을 자동화
-                    </strong>
-                    하였습니다.
-                  </li>
-                </ul>
+                에러 수집과 Slack 알림을 연동하여{' '}
+                <strong>장애 발생 시 즉각적으로 인지할 수 있는 환경</strong>을 구축했습니다.
               </li>
               <li>
+                CI에서 source map을 업로드해{' '}
                 <strong>
-                  Production 배포 시에 자동으로 Git Tag를 생성하고 push 하도록 워크플로우를 개선
+                  에러 로그 기반으로 실제 코드 위치를 추적 가능하게 하여 디버깅 시간을 단축
                 </strong>
-                <ul className="mt-1 flex list-disc items-start gap-1 pl-6 leading-relaxed">
-                  <li>이를 통해 수동으로 Git Tag를 생성하고 push하는 불편함을 해결하였습니다.</li>
-                </ul>
+                했습니다.
               </li>
+              <li>
+                <strong>에러 타입 기반 분류 및 threshold 전략 설계</strong>하고 알림 기준을
+                분리하여, <strong>일반 에러는 임계치 기반, 치명적인 에러는 즉시 알림</strong>이
+                가능하도록 모니터링 체계를 고도화했습니다.
+              </li>
+            </ul>
+            <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+              <li>서버와 통합된 모니터링 환경 구축으로 장애 상황에 대한 공통된 가시성 확보</li>
+              <li>Source map 기반 에러 추적으로 디버깅 시간 단축 및 대응 속도 향상</li>
+              <li>에러 심각도에 따른 알림 체계 분리로 중요한 장애에 대한 빠른 대응 가능</li>
             </ul>
           </section>
 
-          {/* 섹션 3 */}
-          <section className="text-md p-5">
+          <section className="text-md">
             <h3 className="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">
-              🛠 조직이 겪는 기술적인 문제를 피쳐 개발과 병렬적으로 해결합니다.
+              📦 개발 및 릴리즈 과정의 병목을 제거하고 효율을 개선
             </h3>
-            <ul className="list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-200">
-              <li>DTO ↔ 클라이언트 타입 불일치 이슈를 병렬적으로 해결하여 일정 지연 없이 배포</li>
+            <ul className="flex flex-col gap-2 space-y-2 text-gray-700 dark:text-gray-200">
+              <li>
+                <strong>CI 테스트 실행 시간을 1200초 → 90초로 단축</strong>하고, ts-auto-mock의
+                런타임 타입 체크로 인한 성능 병목을 제거하기 위해
+                <strong>createMock 유틸을 설계</strong>하여 2600개 테스트 케이스의 실행 속도를
+                개선했습니다.
+              </li>
+              <li>
+                릴리즈 과정에서 반복적으로 발생하던 수작업을 줄이기 위해
+                <strong>릴리즈 커맨드 자동 생성 도구를 개발 및 npm 패키지로 배포</strong>하고,
+                <strong>Git Tag 생성 및 배포 프로세스를 자동화</strong>하여 릴리즈 효율을
+                개선했습니다.
+              </li>
+            </ul>
+            <ul className="flex list-disc flex-col gap-2 pl-6 pt-4">
+              <li>테스트 실행 시간 90% 이상 단축으로 개발 및 CI 피드백 속도 개선</li>
+              <li>릴리즈 프로세스 자동화를 통해 반복 작업 제거 및 배포 효율 향상</li>
             </ul>
           </section>
         </div>
@@ -247,7 +217,7 @@ export default function AuthorLayout({ children, content }: Props) {
         <div className="flex flex-col gap-6 min-[768px]:w-[70%]">
           <div className="rounded-xl border border-teal-200 bg-teal-50 p-6 shadow-sm">
             <h2 className="mb-2 text-lg font-bold text-teal-800">
-              �� MAU 160만의 중고나라 웹서비스, 앱서비스 내의 웹뷰를 개발 및 유지보수합니다.
+              MAU 160만의 중고나라 웹서비스, 앱서비스 내의 웹뷰를 개발 및 유지보수합니다.
             </h2>
             <p className="text-sm text-gray-700">
               중고거래 헤비 유저로서, 사용자 관점에서 다양한 의견을 제시하고, 개발 뿐 아니라 기획
@@ -325,7 +295,7 @@ export default function AuthorLayout({ children, content }: Props) {
       </div>
 
       {/* 프로젝트 */}
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black  text-[16px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[20px] sm:leading-10 md:text-[20px] md:leading-14">
         Project
       </h2>
       <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
@@ -356,7 +326,7 @@ export default function AuthorLayout({ children, content }: Props) {
       </div>
 
       {/* 활동 */}
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black text-[16px] font-extrabold leading-9 tracking-tight text-gray-900 dark:border-white dark:text-gray-100 sm:text-[20px] sm:leading-10 md:text-[20px] md:leading-14">
         Activity
       </h2>
       <div className="flex flex-col gap-[60px] pb-10">
@@ -392,30 +362,10 @@ export default function AuthorLayout({ children, content }: Props) {
             </div>
           </div>
         </div>
-        <div className="flex gap-10 pb-10 max-[768px]:flex-col max-[768px]:gap-6">
-          <div className="flex w-full flex-col gap-2 border-black dark:border-white min-[768px]:w-[20%] min-[768px]:border-r-[2px]">
-            <p className="text-lg font-bold">멋쟁이사자처럼 프론트엔드 스쿨 2기</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">2022.03 ~ 2023.08</p>
-          </div>
-          <div className="flex flex-col gap-10 min-[768px]:w-[70%]">
-            <div className="flex flex-col gap-4">
-              <ul className="flex list-disc flex-col gap-4 pl-6">
-                <li>멋쟁이사자처럼에서 주관하는 프론트엔드 스쿨 2기에 참여하였습니다.</li>
-                <li>
-                  프론트엔드 개발자 4명이 팀을 이뤄 React 기반 오픈마켓 서비스를 개발하였습니다.
-                </li>
-                <li>
-                  팀장 역할을 수행하고, Git, Github 사용이 처음이라 어려움을 겪는 팀원들을 위해
-                  프로젝트 이전 시뮬레이션을 기획하고 주도하였습니다.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* 학력 */}
-      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black pb-4 text-[24px] font-extrabold leading-9 tracking-tight text-gray-800 dark:border-white dark:text-gray-100 sm:text-[28px] sm:leading-10 md:text-[36px] md:leading-14">
+      <h2 className="mb-10 whitespace-pre border-b-[2px] border-black text-[16px] font-extrabold leading-9 tracking-tight text-gray-800 dark:border-white dark:text-gray-100 sm:text-[20px] sm:leading-10 md:text-[20px] md:leading-14">
         Education
       </h2>
       <div>
