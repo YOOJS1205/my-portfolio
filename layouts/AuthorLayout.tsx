@@ -185,7 +185,7 @@ export default function AuthorLayout({ children, content }: Props) {
                   단일 커맨드 기반 릴리즈 표준화:
                 </strong>{' '}
                 복잡한 검증 과정을 단 1회 명령어로 자동화하여{' '}
-                <strong>매주 정기 릴리즈 시 발생하던 배포 지연 및 휴먼 에러 0건</strong> 달성
+                <strong>매주 정기 릴리즈 시 발생하던 배포 지연 개선</strong>
               </p>
             </div>
           </section>
@@ -221,7 +221,7 @@ export default function AuthorLayout({ children, content }: Props) {
                   사용자 로그 기반 UX 재설계:
                 </strong>{' '}
                 다중 선택 시 발생하던 URL 길이 제한 초과 병목을 페이지네이션 기준(최대 100건) 선택
-                UX로 재설계하여 <strong>요청 실패 0건 달성</strong>
+                UX로 재설계
               </p>
             </div>
           </section>
@@ -267,7 +267,7 @@ export default function AuthorLayout({ children, content }: Props) {
       </div>
 
       {/* 2. 중고나라 (초압축) */}
-      <div className="flex flex-col gap-8 border-t border-gray-200 py-10 dark:border-gray-800">
+      <div className="flex flex-col gap-8 border-t border-gray-200 py-10 dark:border-gray-800 print:break-before-page">
         <div className="flex flex-col gap-6 md:flex-row md:gap-10">
           <div className="flex flex-col gap-1 md:w-[22%]">
             <p className="text-xl font-bold text-gray-900 dark:text-gray-100">중고나라</p>
@@ -351,20 +351,6 @@ export default function AuthorLayout({ children, content }: Props) {
               </p>
             </div>
           </section>
-        </div>
-      </div>
-
-      {/* 4. Education */}
-      <div className="flex flex-col gap-4 border-t border-gray-200 py-8 dark:border-gray-800">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Education</h2>
-        <div className="flex flex-col gap-2 md:flex-row md:gap-10">
-          <div className="flex flex-col md:w-[22%]">
-            <p className="text-base font-bold text-gray-900 dark:text-gray-100">경희대학교</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">2017.03 ~ 2023.08</p>
-          </div>
-          <div className="md:w-[78%]">
-            <p className="text-sm text-gray-700 dark:text-gray-300">산업경영공학과 졸업</p>
-          </div>
         </div>
       </div>
     </main>
