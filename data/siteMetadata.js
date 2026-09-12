@@ -3,7 +3,7 @@ const siteMetadata = {
   title: '유준상',
   author: '유준상',
   headerTitle: 'junsangyoo',
-  description: 'Product Engineer 유준상입니다.',
+  description: '유준상 | Frontend Engineer',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://junsangyoo.vercel.app',
