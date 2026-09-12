@@ -49,7 +49,7 @@ export default function AuthorLayout({ children, content }: Props) {
       <div className="py-6">{children}</div>
 
       {/* Main Section Header Component */}
-      <div className="mb-6 mt-8">
+      <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Work Experience</h2>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           제품의 병목을 분석하고 기술적 의사결정을 통해 실질적인 비즈니스 가치와 안정성을
